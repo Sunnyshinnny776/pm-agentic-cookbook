@@ -1,0 +1,5 @@
+- id: skill-filesystem
+  disabled: false
+  config:
+    customSkillDirs:
+      - ./skills

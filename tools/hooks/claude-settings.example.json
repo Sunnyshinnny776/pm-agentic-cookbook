@@ -1,0 +1,35 @@
+{
+  "_": "Claude Code 的 hooks 注册样例，合并进宿主的 .claude/settings.json。路径假定 cookbook 位于仓库根下的 pm-agentic-cookbook/，放在别处时替换路径前缀。各 hook 读取的路径来自宿主根目录的 cookbook.config.json。",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/pm-agentic-cookbook/tools/hooks/post_edit_verify.sh\"",
+            "timeout": 60,
+            "statusMessage": "Running gate for edited file"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/pm-agentic-cookbook/tools/hooks/stop_checks.sh\"",
+            "timeout": 120,
+            "statusMessage": "Running doc-sync"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/pm-agentic-cookbook/tools/hooks/spec_capture_reminder.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
