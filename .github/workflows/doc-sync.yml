@@ -1,0 +1,26 @@
+name: Documentation checks
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  doc-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Run documentation gates
+        run: npm run doc-sync
+      - name: Run gate regression tests
+        if: ${{ !cancelled() }}
+        run: npm run test:gates

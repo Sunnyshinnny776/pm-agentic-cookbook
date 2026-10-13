@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+.idea/
+.vscode/
+.obsidian/
+.env
+.env.*
+!.env.example
+.journeys/
+.claude/settings.local.json
+CLAUDE.local.md
+__pycache__/
+*.pyc
+*.tgz

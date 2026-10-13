@@ -1,0 +1,15 @@
+{
+  "gates": {
+    "skillsDir": "skills",
+    "styleScanRoots": ["."],
+    "baseRef": "origin/main",
+    "domainWords": ["hrm"],
+    "hostPrivatePatterns": ["/Users/", "/home/"],
+    "extraGates": ["tools/gates/verify-agent-rulebooks.mjs"]
+  },
+  "hooks": {
+    "captureWatchPaths": ["process", "skills", "specs", "templates", "tools"],
+    "docSyncWatchPaths": ["."],
+    "codeReviewWatchPaths": ["tools"]
+  }
+}

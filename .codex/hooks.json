@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/tools/hooks/spec_capture_reminder.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking spec capture reminder"
+          },
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/tools/hooks/stop_checks.sh\"",
+            "timeout": 120,
+            "statusMessage": "Checking documentation gates and code review reminder"
+          }
+        ]
+      }
+    ]
+  }
+}

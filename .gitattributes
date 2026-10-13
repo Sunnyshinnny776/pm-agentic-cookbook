@@ -1,0 +1,3 @@
+* text=auto eol=lf
+*.skill binary
+skills/*/dist/** linguist-generated=true

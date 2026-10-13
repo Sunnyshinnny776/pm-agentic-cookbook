@@ -1,0 +1,14 @@
+{
+  "name": "pm-agentic-cookbook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An agentic workflow cookbook for product managers, with enterprise product practices and extensible domain providers.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "doc-sync": "node tools/gates/doc-sync.mjs",
+    "test:gates": "node --test \"tools/gates/test/*.test.mjs\""
+  },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

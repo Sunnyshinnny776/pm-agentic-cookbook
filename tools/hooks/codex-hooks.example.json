@@ -1,0 +1,23 @@
+{
+  "_": "Codex 的 hooks 注册样例，合并进宿主的 .codex/hooks.json。Codex 只注册两个 Stop hook：post_edit_verify.sh 读取的是 Claude Code 的事件输入格式，不在 Codex 上注册。样例用 $(git rev-parse --show-toplevel) 定位脚本，可以随仓库提交，任何人 clone 后都能用；代价是 Codex 运行时的当前目录必须在仓库里。只在本机注册、不随仓库提交时，可以把它换成宿主仓库的绝对路径，就不再依赖当前目录。hook 按当前目录所在的 git 仓库确定宿主：当前目录在另一个 git 仓库里时，检查的是那个仓库，会报 cookbook 位于宿主仓库之外；需要固定宿主时设置环境变量 COOKBOOK_HOST_ROOT。",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/pm-agentic-cookbook/tools/hooks/spec_capture_reminder.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking spec capture reminder"
+          },
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/pm-agentic-cookbook/tools/hooks/stop_checks.sh\"",
+            "timeout": 120,
+            "statusMessage": "Checking documentation gates and code review reminder"
+          }
+        ]
+      }
+    ]
+  }
+}
