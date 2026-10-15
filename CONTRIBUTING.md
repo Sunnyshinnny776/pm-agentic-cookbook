@@ -53,6 +53,7 @@ git hash-object --no-filters README.md
 将结果写入对应译本的 `source_version`，再运行 `npm run doc-sync`。
 `--no-filters` 保证记录原文件字节，不受本地 Git filters 影响。
 译本滞后会警告；原文缺失或元信息非法会失败。
+分发文档前须同步滞后的译本；开发门禁的警告不能作为译本已同步的证据。
 `AGENTS.md`、`CLAUDE.md`、`GEMINI.md`、`AGENT_GUIDE.md`、`llms.txt` 只有英文一份，
 不采用 sidecar；标准 LICENSE 保留许可原文。
 

@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: CONTRIBUTING.md
-source_version: 049b74c052dceb04895fcc8dfd1ab282046624f6
+source_version: ff98cef3849ab4445712ed5af0f5ad1d04b49620
 ---
 
 This is an English translation of [CONTRIBUTING.md](CONTRIBUTING.md); the Chinese original is authoritative.
@@ -61,7 +61,9 @@ git hash-object --no-filters README.md
 
 Put the result in the corresponding translation's `source_version`, then run `npm run doc-sync`.
 `--no-filters` records the original file bytes regardless of local Git filters. Stale translations warn;
-missing originals or invalid metadata fail. `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `AGENT_GUIDE.md` and `llms.txt`
+missing originals or invalid metadata fail.
+Synchronize stale sidecars before distributing documents; a development warning does not establish translation freshness.
+`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `AGENT_GUIDE.md` and `llms.txt`
 are English-only and have no sidecars. Preserve the standard LICENSE text.
 
 ## Agent rulebooks
