@@ -2,6 +2,7 @@
   "gates": {
     "skillsDir": "skills",
     "styleScanRoots": ["."],
+    "baselineFile": ".verify-baseline.json",
     "baseRef": "origin/main",
     "domainWords": ["hrm"],
     "hostPrivatePatterns": ["/Users/", "/home/"],

@@ -1,0 +1,11 @@
+{
+  "_": "门禁豁免清单。每条必须写 reason；todo:true 表示它是待办而非永久豁免。查看全部：node tools/gates/<门禁名>.mjs --list-baseline。",
+  "verify-skill-generic-layer": [
+    {
+      "file": "skills/create-prd/references/appendices/create-prd-appendix-typing.md",
+      "match": "ERP、CRM、SCM、HRM、OA",
+      "reason": "产品类型表「典型产品」列的枚举。HRM 在这里与 ERP、CRM、SCM、OA 并列，指的是软件品类，不是业务域；门禁的示例排除只认括号与「例如」引导，认不出表格的示例列。",
+      "todo": false
+    }
+  ]
+}
