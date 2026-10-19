@@ -23,7 +23,7 @@
 - **全流程与 11 个 skill**：覆盖从源材料准入到需求验收与最终验证的完整流程，每个阶段由用户确认后推进。11 个 skill 可单独分发：通用 Prompt 可用于任意大模型，`.skill` 安装包可用于支持 skill 的 Agent。
 - **领域 Provider 与参考规则库**：通用指令与领域规则分开存放，`create-prd`、`check-prd` 自带 HR 领域 Provider；附 UI/UX、集成、工程、安全与测试参考规范。
 - **可执行门禁与 Agent 接入**：零 npm 依赖的文档门禁与回归测试，附 Claude Code、Codex 的 hook 注册样例；面向 Agent 的使用说明 `AGENT_GUIDE.md` 与索引 `llms.txt`。
-- **示例与上游许可**：四篇示例展示实战复盘、规则沉淀、Provider 写法和审计基线；两个 PRD skill 派生自 pmYangKun 的上游仓库，依据 Apache-2.0 分发并保留原声明。
+- **示例与上游许可**：三篇示例展示规则沉淀、Provider 写法和审计基线；两个 PRD skill 派生自 pmYangKun 的上游仓库，依据 Apache-2.0 分发并保留原声明。
 
 完整内容见 [CHANGELOG](CHANGELOG.md) 与 [Release notes](https://github.com/Sunnyshinnny776/pm-agentic-cookbook/releases)。
 
@@ -62,6 +62,7 @@ pm-agentic-cookbook/
 │   └── spec-capture/             # 阶段收尾：把可复用的规则沉淀进 spec
 ├── specs/                        # 参考规则库：UI/UX、集成、工程、安全、测试
 ├── templates/                    # 流程文档使用的模板
+├── evals/                        # Agent 引导评测：使用与贡献两个场景
 ├── tools/
 │   ├── gates/                    # 机检门禁与回归测试，`doc-sync.mjs` 聚合运行
 │   └── hooks/                    # Agent hooks 脚本与 Claude Code、Codex 注册样例
@@ -149,7 +150,7 @@ npm run test:gates
 Hooks 提供及时提醒，不阻止操作；实际检查结果以门禁命令和 CI 为准。
 现有门禁覆盖目录与 frontmatter、自包含、领域名词、宿主私有路径、决策格式、
 增量文风、译本元信息、安装包与源文件一致、Agent 路由表与索引、CHANGELOG 版本格式及 Agent 规则薄壳；未配置决策目录时，决策格式门禁明确跳过。
-门禁检查不代表真实业务验收；DSH bundle 配置不代表运行兼容性已验证。
+门禁检查不代表真实业务验收；`package.json` 中的 `dsh` 字段与 `cordis.patch.yml` 是供兼容的 agent harness 打包使用的配置，不代表运行兼容性已验证。
 
 ## 版本
 
@@ -161,7 +162,7 @@ Hooks 提供及时提醒，不阻止操作；实际检查结果以门禁命令�
 
 本 cookbook 的流程、规则与 skill，提炼自一个真实的集团型企业 B 端薪酬系统项目：
 从源材料准入、数据建模、需求文档、原型到测试与审计，都在该项目中实际使用并反复修订。
-项目本身的业务资料、需求文档与代码不随本仓库公开，`examples/` 中的案例经过脱敏。
+项目本身的业务资料、需求文档与代码不随本仓库公开，`examples/` 中的示例经过脱敏。
 各 skill 已验证的范围以其 `evals/` 下的用例为准。
 
 ## 作者的话
@@ -192,5 +193,5 @@ Hooks 提供及时提醒，不阻止操作；实际检查结果以门禁命令�
 
 - **PRD 方法论**：本仓库构建灵感源自 PM 杨堃老师开源的 [create-prd](https://github.com/pmYangKun/create-prd-skill) & [check-prd](https://github.com/pmYangKun/check-prd-skill) 两个 skill，在此基础上结合自身实际工作与思考，不断打磨积累，才得以形成一套覆盖需求评审与规划、PRD 生成与检查、系统设计、测试设计、原型生成等多个阶段的 PM agentic 工作流程。自任职产品经理以来，就一直拜读杨堃老师的[《决胜B端》《决胜体验设计》](https://book.douban.com/subject/36436108/)等著作，深受其启发与影响；本仓库涉及需求文档相关方法论也学习、受益于杨堃老师的公开文章与作品。特此感谢杨堃老师在业内的辛勤耕耘，欢迎大家关注和学习杨堃老师的更多作品。
 - **skill 结构与决策档案机制**：[架构规范](process/kit-architecture.md) 的 capability seam 三角色与目录、frontmatter 标准，
-  [决策档案机制](process/decision-archive.md) 的目录与格式，取自一个公开的开源 agent harness（MIT 许可）。
+  [决策档案机制](process/decision-archive.md) 的目录与格式，借鉴了一个公开的开源 agent harness 的约定。
   两份文档各自的「来源」节说明了哪些部分是借用、哪些是本 cookbook 新增。

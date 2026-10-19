@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 87d5ed9da4985b37317c027921c5c9ab5479a64e
+source_version: 0e360e68a7a14e485bf1b056d46edfdae0e3d44e
 ---
 
 # PM Agentic Cookbook
@@ -29,7 +29,7 @@ You do not need deep programming experience. With a method for working with AI, 
 - **End-to-end workflow and eleven skills** — covers the complete workflow from source intake to requirements acceptance and final verification, advancing each stage only after user confirmation. Each of the eleven skills is distributed on its own: a universal prompt for any LLM and a `.skill` package for agents that support skills.
 - **Domain Providers and a reference rule library** — generic instructions are kept apart from domain rules, and `create-prd` and `check-prd` ship with an HR domain Provider. Reference specs cover UI/UX, integration, engineering, security and testing.
 - **Executable gates and agent onboarding** — documentation gates and regression tests with no npm dependencies, hook registration samples for Claude Code and Codex, and the agent usage guide `AGENT_GUIDE.md` with its `llms.txt` index.
-- **Examples and upstream licensing** — four examples cover a project case study, spec capture, writing a Provider and an audit baseline. The two PRD skills derive from pmYangKun's upstream repositories and are distributed under Apache-2.0 with the original notices retained.
+- **Examples and upstream licensing** — three examples cover spec capture, writing a Provider and an audit baseline. The two PRD skills derive from pmYangKun's upstream repositories and are distributed under Apache-2.0 with the original notices retained.
 
 See the [changelog](CHANGELOG.en.md) and [release notes](https://github.com/Sunnyshinnny776/pm-agentic-cookbook/releases) for the full list.
 
@@ -71,6 +71,7 @@ pm-agentic-cookbook/
 │   └── spec-capture/             # End of a stage: capture reusable rules into specs
 ├── specs/                        # Reference rule library: UI/UX, integration, engineering, security, testing
 ├── templates/                    # Templates used by workflow documents
+├── evals/                        # Agent onboarding evaluations: usage and contribution scenarios
 ├── tools/
 │   ├── gates/                    # Executable gates and regression tests, run together by `doc-sync.mjs`
 │   └── hooks/                    # Agent hook scripts with Claude Code and Codex registration samples
@@ -168,7 +169,8 @@ self-containment, domain nouns, private host paths, decision formats, incrementa
 style, translation metadata, package-to-source consistency, the agent routing table and index,
 CHANGELOG version format and thin agent adapters. The decision-format gate
 explicitly skips when no decision directory is configured. Gate results do not establish
-real business acceptance, and DSH bundle configuration does not establish runtime compatibility.
+real business acceptance. The `dsh` field in `package.json` and `cordis.patch.yml` are packaging configuration
+for a compatible agent harness and do not establish runtime compatibility.
 
 ## Versions
 
@@ -183,7 +185,7 @@ The workflow, rules and skills in this cookbook were distilled from a real B2B c
 system project for a large enterprise group: source intake, domain modeling, requirements
 documents, prototypes, tests and audits were all used and repeatedly revised in that project.
 The project's own business materials, requirements documents and code are not published with
-this repository, and the cases in `examples/` are sanitized. The verified scope of each skill
+this repository, and the examples in `examples/` are sanitized. The verified scope of each skill
 is defined by the cases under its `evals/`.
 
 ## A note from the author
@@ -218,5 +220,5 @@ The two PRD skills are derived from pmYangKun's upstream repositories and are us
 - **PRD methodology**: this repository was inspired by the [create-prd](https://github.com/pmYangKun/create-prd-skill) and [check-prd](https://github.com/pmYangKun/check-prd-skill) skills open-sourced by product manager pmYangKun. Building on them, refined through my own work and reflection, they grew into a PM agentic workflow covering requirements review and planning, PRD generation and checking, system design, test design and prototype generation. Since becoming a product manager, I have read pmYangKun's books [决胜B端 and 决胜体验设计](https://book.douban.com/subject/36436108/), which have deeply inspired and influenced me; the requirements methodology in this repository also learns from and benefits from pmYangKun's public articles and works. Many thanks to pmYangKun for the dedicated work in the industry; you are welcome to follow and learn from more of pmYangKun's work.
 - **Skill structure and the decision archive**: the capability seam roles and directory/frontmatter standards in the
   [architecture conventions](process/kit-architecture.md), and the directory and format of the
-  [decision archive](process/decision-archive.md), come from a public open-source agent harness (MIT license).
+  [decision archive](process/decision-archive.md), follow conventions borrowed from a public open-source agent harness.
   Each document's "Sources" section states what was borrowed and what this cookbook added.
