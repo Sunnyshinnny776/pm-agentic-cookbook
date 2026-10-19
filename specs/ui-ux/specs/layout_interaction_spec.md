@@ -105,7 +105,7 @@ Use one full-width band for top key metrics instead of multiple separate cards.
 - Every interactive element MUST have hover feedback.
 - Disabled actions MUST use `disabled` or `aria-disabled`.
 - Disabled visual style should be `text-gray-300 cursor-not-allowed` or the shared Button disabled style.
-- Disabled actions should explain why via `title`, nearby `Action Feedback`, or a visible disabled reason.
+- Disabled actions should explain why via the shared `<Tooltip>` with an accessible name, nearby `Action Feedback`, or a visible disabled reason.
 - **Pre-execution conflict check**: when an action can conflict with existing data (duplicate identity, in-flight work), the conflict MUST be detected and presented BEFORE the action executes, with the user deciding (exclude conflicting items and continue / cancel). Never execute first and report the skipped part inside a success message.
 - **Uniqueness is enforced at creation, not at a later workflow step**: identity constraints (e.g. one active task per cycle × unit × template) block at create time. Deferring the block to a later step (e.g. dispatch) creates undispatchable zombie drafts and moves the error far from its cause. Later steps only guard state-type conditions (e.g. archived cycle), plus a service-side backstop for race windows.
 

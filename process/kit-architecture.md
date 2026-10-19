@@ -307,4 +307,4 @@ skill 运行在某个宿主项目里，要读宿主的 spec、往宿主的目录
 
 ## 来源
 
-本规范的 capability seam 三角色划分、skill 目录与 frontmatter 标准取自一个公开的开源 agent harness（MIT 许可）。Model Experience 声明、领域名词判据与豁免、三层分发形态为本文档新增。
+本规范的 capability seam 三角色划分、skill 目录与 frontmatter 标准借鉴了一个公开的开源 agent harness 的约定。Model Experience 声明、领域名词判据与豁免、三层分发形态为本文档新增。

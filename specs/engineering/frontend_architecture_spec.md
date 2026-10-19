@@ -79,10 +79,10 @@ Every module splits into three files/layers:
 
 ## Money Arithmetic
 
-- Money arithmetic MUST go through the integer-cents utilities (`addMoney` / `subtractMoney` / `parseAmount`); raw float addition/subtraction on money values is prohibited (IEEE754 drift compounds through ledger chains).
-- User-entered amounts are parsed with `parseAmount` (2-dp normalization, invalid input → 0).
-- The Number-based APIs apply only while cents remain within JavaScript's safe integer range. Full-range `Decimal(18,2)` values use the exact string APIs (`parseExactAmount`, `addExactAmounts`, `sumExactAmounts`, `compareExactAmounts`) and never convert through `number`; invalid input and overflow return explicit errors.
-- Exact amount inputs are normalized to two decimal places. Use the parser that matches the field contract: `parseAmount` keeps its zero fallback for existing number-based flows, while exact Decimal values preserve validation errors. Display formatting stays `toLocaleString`.
+- Money arithmetic MUST go through the shared integer-cents utilities (parse, add, subtract); raw float addition/subtraction on money values is prohibited (IEEE754 drift compounds through ledger chains).
+- User-entered amounts are parsed by the shared amount parser (2-dp normalization, invalid input → 0).
+- The Number-based APIs apply only while cents remain within JavaScript's safe integer range. Full-range `Decimal(18,2)` values use exact string utilities (parse, add, sum, compare) and never convert through `number`; invalid input and overflow return explicit errors.
+- Exact amount inputs are normalized to two decimal places. Use the parser that matches the field contract: the number-based parser keeps its zero fallback for existing number-based flows, while exact Decimal values preserve validation errors. Display formatting stays `toLocaleString`.
 
 ## Identifiers
 
