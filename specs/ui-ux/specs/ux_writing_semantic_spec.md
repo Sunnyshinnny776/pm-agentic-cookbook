@@ -105,4 +105,4 @@ This spec applies to page copy, button display names, hints, error recovery guid
   - The page navigation is displayed on the right, formatted as: `第 [ChevronLeft icon] 1 2 3 [ChevronRight icon] 页` (ellipses `...` are shown for compressed lists where pages > 7).
 - **Button Icons & Style**:
   - The "Previous Page" and "Next Page" buttons are icon-only using standard Lucide-react `ChevronLeft` and `ChevronRight` (size 14), wrapped in a standard `w-6 h-6` (24px) bordered button (with background `#ffffff`, border `#e5e7eb` (`border-gray-200`), rounded, and smooth transitions on hover/focus).
-  - **Tooltips**: The icon-only buttons MUST include accessible HTML `title` attributes: `title="上一页"` and `title="下一页"`.
+  - **Tooltips**: The icon-only buttons MUST show `上一页` and `下一页` through the shared `<Tooltip>` and expose the same text as the button's accessible name (for example `aria-label`); do not use native `title` attributes.

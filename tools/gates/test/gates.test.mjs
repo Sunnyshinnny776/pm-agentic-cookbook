@@ -708,7 +708,7 @@ test("宿主契约：未知角色、路径不存在、缺占位符、子路径�
 
 // verify-skill-host-paths
 
-test("宿主路径：cookbook 通用内容里的私有路径被拦截；providers、evals、examples、CHANGELOG 不查；未声明时跳过", () => {
+test("宿主路径：通用内容与 examples 被检查；providers、evals、CHANGELOG 不查；未声明时跳过", () => {
   // 门禁扫描的是 cookbook 自身，所以把门禁拷进宿主内的 cb/ 当作 cookbook
   const files = {
     "cb/skills/demo-skill/SKILL.md": "产物写到 `docs/modules/x/` 下。\n",
@@ -734,7 +734,8 @@ test("宿主路径：cookbook 通用内容里的私有路径被拦截；provider
     const r = run(h);
     assert.equal(r.code, 1, r.out);
     assert.match(r.out, /cb\/skills\/demo-skill\/SKILL\.md:1[\s\S]*docs\/modules\//);
-    assert.doesNotMatch(r.out, /providers|evals|CHANGELOG|examples/);
+    assert.match(r.out, /cb\/examples\/case\.md:1/);
+    assert.doesNotMatch(r.out, /providers|evals|CHANGELOG/);
   } finally { h.done(); }
 
   // cookbook 不在宿主仓库内时，内容不由本宿主维护，跳过
@@ -1187,12 +1188,41 @@ test("frontmatter：行内代码以内部目录开头再借 .. 上溯到 skill �
   try { assert.match(h.run("verify-skill-frontmatter").out, /references\/\.\.\/\.\.\/other\/x\.md» 指向 skill 目录之外/); } finally { h.done(); }
 });
 
-test("宿主路径：只排除 cookbook 根下的 examples/，skill 里的 examples/ 照样查", () => {
-  const h = host({ "cb/skills/demo-skill/examples/a.md": "写到 `docs/modules/x/`。\n" }, { hostPrivatePatterns: ["docs/modules/"] });
+test("宿主路径：cookbook 根与 skill 内的 examples 都检查", () => {
+  const h = host({ "cb/examples/a.md": "写到 `docs/modules/x/`。\n", "cb/skills/demo-skill/examples/a.md": "写到 `docs/modules/x/`。\n" }, { hostPrivatePatterns: ["docs/modules/"] });
   try {
     const r = inHostCookbook(h)("verify-skill-host-paths");
     assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /cb\/examples\/a\.md:1/);
     assert.match(r.out, /skills\/demo-skill\/examples\/a\.md:1/);
+  } finally { h.done(); }
+});
+
+test("宿主路径：cookbook 是宿主根时也检查 examples，通用内容放行", () => {
+  const h = host({ "examples/a.md": "docs/modules/example/\n" }, { hostPrivatePatterns: ["docs/modules/"] });
+  try {
+    const run = inHostCookbook(h, ".");
+    assert.match(run("verify-skill-host-paths").out, /examples\/a\.md:1/);
+    writeFileSync(join(h.root, "examples/a.md"), "A fictional example using host-declared paths.\n");
+    assert.equal(run("verify-skill-host-paths").code, 0);
+  } finally { h.done(); }
+});
+
+test("宿主路径：公开规范链接的 exactLine 仅放行同文件的精确行", () => {
+  const line = "See [Layout](../specs/layout_interaction_spec.md).";
+  const baseline = { "verify-skill-host-paths": [{ file: "cb/examples/case.md", match: "layout_interaction_spec", exactLine: line, reason: "Reviewed public spec link." }] };
+  const h = host({ "cb/examples/case.md": line + "\n", "baseline.json": JSON.stringify(baseline) }, { hostPrivatePatterns: ["layout_interaction_spec", "private/"], baselineFile: "baseline.json" });
+  try {
+    const run = inHostCookbook(h);
+    assert.equal(run("verify-skill-host-paths").code, 0);
+    writeFileSync(join(h.root, "cb/examples/other.md"), line + "\n");
+    assert.match(run("verify-skill-host-paths").out, /other\.md:1/);
+    rmSync(join(h.root, "cb/examples/other.md"));
+    writeFileSync(join(h.root, "cb/examples/case.md"), line + " Host private/example.\n");
+    const r = run("verify-skill-host-paths");
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /layout_interaction_spec/);
+    assert.match(r.out, /private\//);
   } finally { h.done(); }
 });
 

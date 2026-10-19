@@ -1,0 +1,36 @@
+# PM Agentic Cookbook
+
+> A workflow and skill collection for turning confirmed business sources into models, requirements, prototypes and verifiable delivery.
+
+## Agent usage
+
+- [Agent Guide](AGENT_GUIDE.md): Choose available skills, confirm domains and configuration, and respect phase decisions.
+
+## Process
+
+- [Workflow](process/overview.md): Read the phase order and evidence boundaries.
+- [Executor protocol](process/agent-execution-protocol.md): Separate authors, auditors and walkthrough executors.
+
+## Skills
+
+- [source-intake](skills/source-intake/SKILL.md): Assess and index the source material for a project.
+- [domain-modeling](skills/domain-modeling/SKILL.md): Define entities, relationships and domain rules.
+- [acceptance-criteria](skills/acceptance-criteria/SKILL.md): Create criteria and reconcile delivery evidence.
+- [create-prd](skills/create-prd/SKILL.md): Draft requirements from confirmed inputs.
+- [check-prd](skills/check-prd/SKILL.md): Review a requirements document and explicit domain supplements.
+- [ui-generator](skills/ui-generator/SKILL.md): Generate an interactive business prototype.
+- [table-template-designer](skills/table-template-designer/SKILL.md): Design complex business tables.
+- [test-authoring](skills/test-authoring/SKILL.md): Write executable tests from requirements.
+- [journey-audit](skills/journey-audit/SKILL.md): Plan and audit runtime journeys.
+- [consistency-audit](skills/consistency-audit/SKILL.md): Compare specifications, models and implementation paths.
+- [spec-capture](skills/spec-capture/SKILL.md): Capture confirmed reusable rules.
+
+## Specs
+
+- [Reference rule library](specs/README.md): Start with the supplied UI/UX, integration, engineering, security and testing rules, then adapt them to the host.
+- [Host spec map](AGENT_GUIDE.md#host-configuration): Locate the rules declared by the host instead of guessing paths.
+- [Kit architecture](process/kit-architecture.md): Read the Definition, Provider, configuration and gate contracts.
+
+## Examples
+
+- [Examples](examples/): Read the example documents available in this checkout.

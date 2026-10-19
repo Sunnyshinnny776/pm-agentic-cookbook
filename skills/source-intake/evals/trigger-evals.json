@@ -1,0 +1,24 @@
+[
+  {
+    "query": "我要开始做一个新模块，业务方就给了我一份粗糙的表格，这些材料够不够？",
+    "should_trigger": true
+  },
+  {
+    "query": "我们有个系统在跑，现在要加个功能，帮我梳理需求并给实现方案。",
+    "should_trigger": true
+  },
+  {
+    "query": "手上没有文档，我口述给你，你帮我把需求固化下来。",
+    "should_trigger": true
+  },
+  {
+    "query": "材料齐了，直接按这份方案文档给我生成 PRD。",
+    "should_trigger": false,
+    "note": "材料已足时直接进 create-prd，不需要准入"
+  },
+  {
+    "query": "这一阶段做完了，把可复用的规则沉淀一下。",
+    "should_trigger": false,
+    "note": "阶段收口属 spec-capture"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "query": "把这份 PRD 变成能点的高保真原型。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我把这个页面做出来，要能切换角色看。",
+    "should_trigger": true
+  },
+  {
+    "query": "出个可交互的 Demo，我要拿去评审。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我调一下这个表格的冻结列和多级表头样式。",
+    "should_trigger": false,
+    "note": "复杂表格模版本体属 table-template-designer"
+  },
+  {
+    "query": "先给我写一份这个页面的需求文档。",
+    "should_trigger": false,
+    "note": "生成 PRD 属 create-prd"
+  }
+]

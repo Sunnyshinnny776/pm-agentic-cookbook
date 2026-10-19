@@ -1,0 +1,24 @@
+[
+  {
+    "query": "按这份 PRD 给这个模块的实现写测试并跑一遍。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮这个模块补点测试，验证一下实现和需求对不对得上。",
+    "should_trigger": true
+  },
+  {
+    "query": "请现在为这次存量迭代编写测试，既验证新需求，也守住现状基线里不许变的老行为。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我审一下这份 PRD 的质量。",
+    "should_trigger": false,
+    "note": "审文档属 check-prd；本 skill 以 PRD 为预言去测实现"
+  },
+  {
+    "query": "原型跑起来了，做一次端到端旅程审计。",
+    "should_trigger": false,
+    "note": "真实运行原型的旅程审计属 journey-audit"
+  }
+]

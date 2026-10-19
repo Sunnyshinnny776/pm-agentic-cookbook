@@ -1,0 +1,24 @@
+[
+  {
+    "query": "原型跑起来了，帮我做一次端到端的流程审计，看看角色权限和状态流转对不对。",
+    "should_trigger": true
+  },
+  {
+    "query": "我照着清单人工点完了，录制器的 journey_steps.json 在这儿，你审一下覆盖度。",
+    "should_trigger": true
+  },
+  {
+    "query": "人工测试前先给我生成一份按业务关键度排序的 E2E 覆盖清单。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮这个模块写点 jsdom 单测。",
+    "should_trigger": false,
+    "note": "写可执行测试属 test-authoring；本 skill 审的是真实运行原型"
+  },
+  {
+    "query": "看看我这份 PRD 有没有漏掉异常处理。",
+    "should_trigger": false,
+    "note": "审静态文档属 check-prd"
+  }
+]
