@@ -1,0 +1,7 @@
+{
+  "host": {
+    "moduleDocs": "docs",
+    "testsDir": "tests",
+    "processRecordsDir": "records"
+  }
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "query": "这一轮做完了，把里面可复用的规则沉淀进 specs。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我提炼一下本阶段确定下来的交互规则，放到该放的地方。",
+    "should_trigger": true
+  },
+  {
+    "query": "收口本阶段规则。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我把这个业务的实体关系理一下。",
+    "should_trigger": false,
+    "note": "数据建模属 domain-modeling"
+  },
+  {
+    "query": "手上这些材料够不够开工？",
+    "should_trigger": false,
+    "note": "材料准入属 source-intake"
+  }
+]

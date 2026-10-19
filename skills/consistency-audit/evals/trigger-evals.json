@@ -1,0 +1,33 @@
+[
+  {
+    "query": "PRD 里写了系统至少要保留一个管理员，帮我查一下代码里是不是每个能改管理员状态的地方都守住了。",
+    "should_trigger": true
+  },
+  {
+    "query": "这批代码写完了，做一次 M2 独立审计，核对实现和 PRD、数据模型对不对得上。",
+    "should_trigger": true
+  },
+  {
+    "query": "登记表里的权限点和代码里的权限目录对一下账，看有没有多的少的。",
+    "should_trigger": true
+  },
+  {
+    "query": "流程图上写的状态数和数据模型里的对不上，帮我把几份文档之间不一致的地方都找出来。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我审一下这份 PRD 写得怎么样，有哪些缺漏。",
+    "should_trigger": false,
+    "note": "单份需求文档本身的质量归 check-prd"
+  },
+  {
+    "query": "根据 PRD 给这个模块补一套单元测试。",
+    "should_trigger": false,
+    "note": "编写测试归 test-authoring"
+  },
+  {
+    "query": "按覆盖清单把原型的端到端流程走一遍，看页面跳转对不对。",
+    "should_trigger": false,
+    "note": "运行中原型的流程审计归 journey-audit"
+  }
+]

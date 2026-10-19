@@ -1,0 +1,162 @@
+/*
+ * ToB Design Tokens — 通用 ToB 产品视觉规范
+ * 
+ * 用途：作为 AI 生成 ToB 原型时的视觉约束输入
+ * 适配：Tailwind CSS
+ * 配套：宿主没有 UI/UX 规则时，与 references/default-uiux-rules.md 一起使用
+ */
+
+:root {
+  /* ========================================
+     色彩系统 (Color System)
+     ======================================== */
+
+  /* 品牌色 - 专业沉稳的绿色系 */
+  --color-primary-50:  #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;   /* 主色调 */
+  --color-primary-700: #15803d;   /* Hover / Active */
+  --color-primary-800: #166534;
+  --color-primary-900: #14532d;
+
+  /* 状态色 */
+  --color-success:    #16a34a;
+  --color-warning:    #ea580c;   /* orange-600 */
+  --color-error:      #dc2626;   /* red-600 */
+  --color-info:       #4b5563;   /* gray-600，信息提示用中性色 */
+  --color-processing: #2563eb;   /* blue-600 */
+
+  /* 中性色 */
+  --color-gray-50:  #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* 背景色 */
+  --color-bg-body:   #F5F7FA;
+  --color-bg-card:   #FFFFFF;
+  --color-bg-hover:  rgba(22, 163, 74, 0.04);  /* primary-50/30 */
+
+  /* ========================================
+     间距系统 (Spacing) — 基于 4px 网格
+     ======================================== */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ========================================
+     字体系统 (Typography)
+     ======================================== */
+  --font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* 字号：与 Tailwind 默认字号一致，避免令牌覆盖工具类后层级错位。
+     正文用 text-sm（14px）；紧凑表格与行内明细用 13px；页面标题用 text-2xl（24px） */
+  --text-xs:   12px;
+  --text-sm:   14px;   /* ToB 正文标准 */
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  36px;
+
+  /* 字重 */
+  --font-normal:   400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  /* 行高 */
+  --leading-tight:  1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* ========================================
+     圆角 (Border Radius)
+     ======================================== */
+  --radius-sm:   4px;
+  --radius-md:   6px;   /* 按钮、输入框 */
+  --radius-lg:   8px;   /* 卡片 */
+  --radius-xl:   12px;  /* 大面板 */
+  --radius-full: 9999px; /* 圆形 */
+
+  /* ========================================
+     阴影 (Box Shadow)
+     ======================================== */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-xl:  0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ========================================
+     布局 (Layout)
+     ======================================== */
+  --sidebar-width:      240px;
+  --sidebar-collapsed:  64px;
+  --header-height:      56px;
+  --content-padding:    24px;
+
+  /* ========================================
+     动画 (Animation)
+     ======================================== */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   350ms ease;
+}
+
+/* ========================================
+   通用组件样式预设
+   ======================================== */
+
+/* 卡片 */
+.tob-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+/* 表格行 hover */
+.tob-table-row:hover {
+  background-color: var(--color-bg-hover);
+}
+
+/* 页面淡入动画 */
+.tob-fade-in {
+  animation: fadeIn var(--transition-normal) ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ToB 滚动条 */
+.tob-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.tob-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+  border-radius: var(--radius-full);
+}
+.tob-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}

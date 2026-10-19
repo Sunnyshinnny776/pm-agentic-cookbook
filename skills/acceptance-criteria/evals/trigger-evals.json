@@ -1,0 +1,39 @@
+[
+  {
+    "query": "docs/模型.md已经确认，docs/需求确认书.md是依据。先别写PRD，帮我在out/标准.md写出逐条可核对的业务验收标准。",
+    "should_trigger": true
+  },
+  {
+    "query": "请按docs/模型.md和docs/需求确认书.md补齐docs/验收标准.md，保留已有编号，我要逐条确认什么算完成。",
+    "should_trigger": true
+  },
+  {
+    "query": "下游测试发现缺了一条业务完成口径，先把docs/验收标准.md修成待确认草稿，依据仍用docs/模型.md。",
+    "should_trigger": true
+  },
+  {
+    "query": "认领和释放范围的标准已逐条确认，在docs/验收标准.md。帮我按docs/模型.md写这两项的PRD第4.2节，只做已有范围。",
+    "should_trigger": false,
+    "note": "生成PRD归create-prd；引用标准不等于生成清单"
+  },
+  {
+    "query": "拿docs/验收标准.md核对docs/需求确认书.md和docs/模型.md是否一致，只列问题。",
+    "should_trigger": false,
+    "note": "对象间核对归consistency-audit"
+  },
+  {
+    "query": "基于docs/验收标准.md和docs/模型.md写可执行测试并运行。",
+    "should_trigger": false,
+    "note": "测试实现与执行归test-authoring"
+  },
+  {
+    "query": "给门店调拨做人工E2E旅程覆盖清单，引用docs/验收标准.md。",
+    "should_trigger": false,
+    "note": "旅程覆盖归journey-audit阶段A"
+  },
+  {
+    "query": "把调拨列表页做成可点击原型，依据docs/需求确认书.md。",
+    "should_trigger": false,
+    "note": "原型生成归ui-generator"
+  }
+]

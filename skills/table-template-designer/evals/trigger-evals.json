@@ -1,0 +1,24 @@
+[
+  {
+    "query": "帮我设计一个按组织层级填报的预算明细表，要有多级表头和冻结列。",
+    "should_trigger": true
+  },
+  {
+    "query": "做个费用报销的汇总表样式。",
+    "should_trigger": true
+  },
+  {
+    "query": "这个填报表格的级联下拉和行高怎么做，给我出个模版。",
+    "should_trigger": true
+  },
+  {
+    "query": "把整个填报页面连同左侧导航一起做出来。",
+    "should_trigger": false,
+    "note": "整页原型属 ui-generator；本 skill 只做表格本体"
+  },
+  {
+    "query": "帮我写一份填报模块的需求文档。",
+    "should_trigger": false,
+    "note": "生成 PRD 属 create-prd"
+  }
+]

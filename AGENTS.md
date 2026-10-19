@@ -26,7 +26,9 @@ Run evals from the source directory, not from installation packages.
 ## Validation and decisions
 
 Before committing, run `npm run doc-sync` and `npm run test:gates` and inspect the
-exact diff. Gates do not certify business acceptance. Hooks are advisory.
+exact diff. Report each command's numeric exit code and every failure or skipped
+check; if the tool output omits the exit code, capture it instead of inferring it.
+Gates do not certify business acceptance. Hooks are advisory.
 Propose reusable rules through spec-capture; the maintainer decides whether to
 adopt them. Do not self-certify approval. Use an independent reviewer for changes
 to audit skills: authors must not audit their own artifacts.

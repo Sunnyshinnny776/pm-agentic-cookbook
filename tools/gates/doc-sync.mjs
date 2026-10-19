@@ -8,7 +8,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const GATES = ["verify-skill-frontmatter", "verify-skill-generic-layer", "verify-skill-host-paths", "verify-decision-format", "verify-no-section-sign", "verify-translation-sync"]
+const GATES = ["verify-skill-frontmatter", "verify-skill-generic-layer", "verify-skill-host-paths", "verify-decision-format", "verify-no-section-sign", "verify-translation-sync", "verify-skill-packages", "verify-agent-guide", "verify-changelog"]
   .map((g) => join(HERE, `${g}.mjs`));
 const { ROOT, CONFIG } = await import("./lib/verify-common.mjs");
 const extra = [...CONFIG.gates.extraGates.map((p) => resolve(ROOT, p)), ...process.argv.slice(2).map((p) => resolve(p))];

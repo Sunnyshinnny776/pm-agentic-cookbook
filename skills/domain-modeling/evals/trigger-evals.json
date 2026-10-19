@@ -1,0 +1,24 @@
+[
+  {
+    "query": "这个业务里有订单、合同、结算单几个东西，关系有点乱，帮我理一下。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我设计一下这个模块的数据结构和 ER 图。",
+    "should_trigger": true
+  },
+  {
+    "query": "费用从申请到入账中间要经过哪些对象，字段怎么定，你梳理一下。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我写一份这个模块的需求文档。",
+    "should_trigger": false,
+    "note": "生成 PRD 属 create-prd；建模是它的上游而非同一件事"
+  },
+  {
+    "query": "给这个模块的实现补点单元测试。",
+    "should_trigger": false,
+    "note": "写测试属 test-authoring"
+  }
+]

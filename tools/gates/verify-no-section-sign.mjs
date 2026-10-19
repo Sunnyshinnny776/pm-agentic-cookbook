@@ -13,7 +13,7 @@ const SIGN = "\u00A7"; // 用转义写，否则脚本自己会命中自己
 const EXT = [".md", ".ts", ".tsx", ".css", ".mjs", ".js", ".py", ".sh"];
 const SCAN = CONFIG.gates.styleScanRoots;
 // dist 是构建产物，其中的符号来自源文件。拦它等于要求"重建某个包之前先清干净无关源文件"，
-// 与「编辑该文件时同 pass 清除」的裁定冲突。清源文件再重建即可。
+// 与「编辑文件时在同一轮清除其中的章节号符」的写作规则冲突。清源文件再重建即可。
 const isDist = (f) => ("/" + f).includes("/dist/");
 
 if (process.argv.includes("--list-baseline")) { listBaseline(RULE); process.exit(0); }

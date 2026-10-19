@@ -1,0 +1,36 @@
+{
+  "_license_notice": "Derived from pmYangKun/check-prd-skill; modified by PM Agentic Cookbook contributors. SPDX-License-Identifier: Apache-2.0. See LICENSE and NOTICE.",
+  "skill_name": "check-prd",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "请审查一个内部自研的采购审批系统 PRD。文档覆盖项目背景、采购单流程、审批流、供应商管理和报表页，但没有商业化内容。请按 B 端 PRD 质量框架逐维度输出问题，并说明哪些维度不适用。",
+      "expected_output": "先完成产品定型，识别为自研内部系统，再逐维度输出发现，并把商业分析中的商业化子项标注为不适用。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我有一份商业化 SaaS 的 CRM 产品方案，包含销售线索、客户、商机、报价、权限、多租户和计费章节。帮我做一次严格 PRD review，重点挑出商业分析、数据模型和多租户风险。",
+      "expected_output": "应触发 check-prd skill，按顺序完成 14 个维度检查，并在重大风险项中明确检查多租户相关风险。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "下面是一份客服 Copilot 模块设计说明，涉及知识库检索、回复建议、人工确认、效果评估和异常兜底。请把它当作 B 端方案做质量检查，尤其关注 AI 功能设计和异常处理。",
+      "expected_output": "应识别文档涉及 AI 功能，在维度 13 中给出专项检查，并保持逐维度即时输出。",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "请按 hrm 领域审查一份 HR 业务模块 PRD。文档包含薪资期间、发薪人员同步、薪资档案、批量导入、异常修正、审批锁定和结果归档。请按 check-prd 框架严格 review。",
+      "expected_output": "应加载 hrm 领域 Provider，识别为 HR 系统领域和功能模块级 PRD，在 02 中完成业务领域和文档粒度定型，在 07/08/09/12 中按 Provider 的维度专项检查项核对 Domain Model 一致性、人员与薪资档案粒度、薪资月等时间口径、组织数据权限、导入同步幂等、状态锁定、敏感数据保护，并在最终报告输出领域专项检查摘要与验收场景检查。领域风险项编号须与 Provider 一致（HR-R 系）。",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "请审查一个组织人事子功能 PRD，内容只覆盖部门调动和任职变更页面。项目已有 Domain Model、组织权限规则和薪酬模块会消费任职数据。请判断这份子功能需求是否完整。",
+      "expected_output": "应识别为 HR 系统领域和子功能级 PRD，不要求完整系统级 ER 和商业章节，但必须检查上级模块引用、Domain Model 对齐、员工/任职/岗位分配粒度、组织数据权限、跨模块数据流、锁定态和正常/异常/权限/幂等验收场景。",
+      "files": []
+    }
+  ]
+}

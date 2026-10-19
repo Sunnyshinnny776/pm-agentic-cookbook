@@ -1,0 +1,24 @@
+[
+  {
+    "query": "我们要做一个供应商准入管理模块，业务流程和角色都理清楚了，帮我出一份需求文档。",
+    "should_trigger": true
+  },
+  {
+    "query": "帮我写个 PRD，内容是费用报销的申请和审批。",
+    "should_trigger": true
+  },
+  {
+    "query": "这个模块的方案文档要交评审了，你按标准结构给我生成一份。",
+    "should_trigger": true
+  },
+  {
+    "query": "我这份 PRD 已经写完了，你帮我挑挑毛病。",
+    "should_trigger": false,
+    "note": "审查既有 PRD 属 check-prd，不是生成"
+  },
+  {
+    "query": "把这份 PRD 里的列表页做成能点的原型。",
+    "should_trigger": false,
+    "note": "从 PRD 出原型属 ui-generator"
+  }
+]

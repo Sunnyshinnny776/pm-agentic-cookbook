@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:5173/",
+  "startedAt": "2026-01-10T09:00:00.000Z",
+  "steps": [
+    { "index": 1, "ts": "2026-01-10T09:00:05.000Z", "type": "navigate", "target": null, "node": "我的报价单", "role": "销售代表",
+      "statuses": [], "actions": [ { "name": "新建报价单", "disabled": false } ] },
+    { "index": 2, "ts": "2026-01-10T09:00:20.000Z", "type": "click", "target": { "role": "button", "name": "提交" }, "node": "报价单详情", "role": "销售代表",
+      "statuses": [ { "text": "待审批", "status": "processing" } ],
+      "actions": [ { "name": "批准", "disabled": false }, { "name": "驳回", "disabled": true } ] },
+    { "index": 3, "ts": "2026-01-10T09:00:21.000Z", "type": "feedback", "channel": "toast", "level": "success", "text": "报价单已提交" },
+    { "index": 4, "ts": "2026-01-10T09:01:00.000Z", "type": "navigate", "target": null, "node": "待审批报价单", "role": "销售经理",
+      "actions": [ { "name": "批准", "disabled": false }, { "name": "驳回", "disabled": false } ] },
+    { "index": 5, "ts": "2026-01-10T09:01:30.000Z", "type": "click", "target": { "role": "button", "name": "驳回" }, "node": "报价单详情", "role": "销售经理",
+      "statuses": [ { "text": "已驳回", "status": "" } ], "actions": [] }
+  ]
+}
