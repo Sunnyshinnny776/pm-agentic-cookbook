@@ -46,8 +46,7 @@ pm-agentic-cookbook/
 │   ├── loop-engineering.md       # 验证回路、门禁与 hooks、停机与审计边界、eval 接口
 │   ├── kit-architecture.md       # 架构规范：capability seam、目录与 frontmatter 标准、宿主契约
 │   ├── agent-execution-protocol.md # Agent 执行协议：阶段执行者矩阵与子代理派发规则
-│   ├── decision-archive.md       # 决策档案机制：记「为什么是这样，以及不是哪样」
-│   └── versioning.md             # 版本管理：语义化版本、CHANGELOG 与发版规则
+│   └── decision-archive.md       # 决策档案机制：记「为什么是这样，以及不是哪样」
 ├── skills/                       # AI 指令集，每个 skill 自包含，可单独分发
 │   ├── source-intake/            # 阶段零：源材料准入与需求调研
 │   ├── domain-modeling/          # 阶段一：业务建模
@@ -155,8 +154,7 @@ Hooks 提供及时提醒，不阻止操作；实际检查结果以门禁命令�
 ## 版本
 
 整库与各 skill 分别使用语义化版本：整库版本见 [CHANGELOG](CHANGELOG.md) 与 Git tag，
-各 skill 的版本见各自目录下的 `CHANGELOG.md`。升号规则、对外契约的范围与发版流程见
-[版本管理](process/versioning.md)。
+各 skill 的版本见各自目录下的 `CHANGELOG.md`。
 
 ## 源自实战
 

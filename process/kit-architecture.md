@@ -175,7 +175,7 @@ disable-model-invocation: false    # Kit 约定必写；省略时外部默认即
 | `verify-translation-sync` | 第 8 节双语 sidecar：扫描 cookbook 与 `gates.skillsDir` 下的 `*.en.md`（skill 的 `dist/` 构建产物除外）；`authority` 必须为 `zh`，`translation_of` 必须是同目录对应的中文文件名，`source_version` 必须是原文 blob hash。原文不存在或元信息无效时报错（1）；原文内容 hash 与记录版本不等时警告「译本滞后」，退出码仍为 0；计算 hash 失败退出码 2。Agent 入口文件免检。不检查译文语义，也不把更新 hash 当作完成翻译的证明 |
 | `verify-skill-packages` | 已存在的 `.skill` 安装包必须与当前 skill 源文件的成员集合、原始字节及执行权限一致。省略 `dist/`、`evals/`、Git/缓存元数据与 `references/providers/<domain>/`，保留 Provider 接口文件；排除规则相对 skill 根判断。使用 Node 读取 stored/deflate ZIP 并核对成员校验值，不解包、不调用 Python；不支持的包格式或损坏包报错并要求重建；单包最多 20 MiB、展开内容最多 50 MiB、成员最多 5000 个。某个 skill 没有生成包时逐个说明跳过，不代表已验证该 skill 的分发产物 |
 | `verify-agent-guide` | 使用说明的 `User intent / Skill / Stage` 路由表与当前 cookbook 的 `skills/` 目录及 frontmatter `name` 集合一致；每个 skill 恰有一行，正文只允许一张该表头的路由表，演示表放在代码块中。`llms.txt` 中的相对文件和目录链接必须存在且留在 cookbook 内，符号链接也不能指到外部；代码示例与外部 URL 不作为本地文件链接。作为 `doc-sync` 内建门禁默认执行；cookbook 根目录没有使用说明和索引时明确跳过，只要有其中一份就检查两份 |
-| `verify-changelog` | `process/versioning.md` 第 4、6 节：各 skill 必须有至少一节合法版本，版本号严格递减；根 CHANGELOG 存在时检查，未发布只允许出现在顶部。按 `gates.baseRef` 和本地改动检查行为文件变化（包括纯重命名）是否同步该 skill 的 CHANGELOG；排除 dist、evals 与 README。skill 根下非点开头目录都要求 CHANGELOG，缺少 SKILL.md 另由入口门禁报告。作为 `doc-sync` 内建门禁执行 |
+| `verify-changelog` | 各 skill 必须有至少一节合法版本，版本号严格递减；根 CHANGELOG 存在时检查，未发布只允许出现在顶部。按 `gates.baseRef` 和本地改动检查行为文件变化（包括纯重命名）是否同步该 skill 的 CHANGELOG；排除 dist、evals 与 README。skill 根下非点开头目录都要求 CHANGELOG，缺少 SKILL.md 另由入口门禁报告。作为 `doc-sync` 内建门禁执行 |
 
 各门禁所说的「代码块」按栅栏识别：以三个或更多反引号或波浪线开头（反引号栅栏同一行的信息串里不能再有反引号，否则不算栅栏），闭合栅栏须与开栅栏同字符、不短于开栅栏（更长也算闭合）、且该行只有栅栏字符，允许 CRLF 行尾；栅栏可以缩进（列表项里的代码块）；没有闭合的栅栏延续到文末。
 
