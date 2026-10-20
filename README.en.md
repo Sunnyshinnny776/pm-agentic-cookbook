@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 0e360e68a7a14e485bf1b056d46edfdae0e3d44e
+source_version: 4fb63218fe7752d35a49e2119eca6d59f4802a23
 ---
 
 # PM Agentic Cookbook
@@ -55,8 +55,7 @@ pm-agentic-cookbook/
 │   ├── loop-engineering.md       # Verification loops, gates and hooks, stop and audit boundaries, eval interface
 │   ├── kit-architecture.md       # Architecture conventions: capability seam, directory and frontmatter standards, host contract
 │   ├── agent-execution-protocol.md # Agent execution protocol: stage executor matrix and subagent dispatch
-│   ├── decision-archive.md       # Decision archive: records why things are this way, and what was rejected
-│   └── versioning.md             # Versioning: semantic versions, CHANGELOG and release rules
+│   └── decision-archive.md       # Decision archive: records why things are this way, and what was rejected
 ├── skills/                       # Agent instructions; each skill is self-contained and distributable on its own
 │   ├── source-intake/            # Stage 0: source material intake and requirements research
 │   ├── domain-modeling/          # Stage 1: domain modeling
@@ -176,8 +175,7 @@ for a compatible agent harness and do not establish runtime compatibility.
 
 The repository and each skill use semantic versions separately: the repository version is in
 the [CHANGELOG](CHANGELOG.md) and Git tags, and each skill's version is in the `CHANGELOG.md`
-in its directory. See [versioning](process/versioning.md) for bump rules, the scope of the
-external contract and the release process.
+in its directory.
 
 ## From real project work
 
