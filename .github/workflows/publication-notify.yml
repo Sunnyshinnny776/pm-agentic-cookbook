@@ -1,0 +1,18 @@
+name: Delivery notification
+on:
+  pull_request:
+    types: [closed]
+permissions: {}
+jobs:
+  notify:
+    # Only maintainer-merged delivery branches of this repository notify the upstream publisher.
+    if: github.event.pull_request.merged && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'publish/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request reconciliation
+        env:
+          GH_TOKEN: ${{ secrets.COOKBOOK_RECONCILE_TOKEN }}
+          SOURCE_REPO: ${{ secrets.COOKBOOK_SOURCE_REPO }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        # Output is discarded so the public log never shows the upstream location.
+        run: gh api --method POST "repos/$SOURCE_REPO/actions/workflows/cookbook-publication.yml/dispatches" -f ref=main -f "inputs[operation]=reconcile" -f "inputs[public_pr]=$PR_NUMBER" > /dev/null 2>&1
