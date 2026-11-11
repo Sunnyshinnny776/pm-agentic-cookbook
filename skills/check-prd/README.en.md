@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 12f682063b8f204ef01db19e724f8b64f82d40ae
+source_version: 9ec6518f591e53eeb07672d27e49f7d511b38331
 ---
 
 <!-- Derived from pmYangKun/check-prd-skill; modified by PM Agentic Cookbook contributors. SPDX-License-Identifier: Apache-2.0. See LICENSE and NOTICE. -->
@@ -109,17 +109,19 @@ Create, check, and iterate.
 
 See the branch: [check-prd-skill Feishu CLI edition](https://github.com/pmYangKun/check-prd-skill/tree/check-prd-skill飞书CLI协作版(Special-tks-to-Scofy)).
 
+Run directly when the current goal or adopted workflow requires a PRD quality conclusion. Ask and wait only for material ambiguity; when it is clearly not needed, do not invoke it or ask an extra question. Allow / Ask / Deny in SKILL.md preserves automatic discovery as behavioral guidance, without host enforcement.
+
 ## Model Experience
 
 Character counts use Unicode code points. Body counts exclude frontmatter; all references include Providers and universal prompt introductions. Character counts are not token counts.
 
 | Item | Content |
 | --- | --- |
-| Always loaded | `name` + `description`, **431 characters**. A common catalog description limit is 500; truncation removes the **tail**, where trigger phrases sit. Measure before editing and leave margin |
-| On-demand loading | `SKILL.md` body, approximately 7.0k characters |
+| Always loaded | `name` + `description`, 136 characters |
+| On-demand loading | `SKILL.md` body, approximately 7.5k characters; loading it does not itself authorize execution |
 | Secondary loading | **Read by dimension, never together**: 14 files in `references/dimensions/`, approximately 61.0k characters total; read file N only when reviewing dimension N (3.0k–7.1k each). Read `appendices/check-prd-appendix-veto.md` (4.4k) when consolidating major risks, except its issue-priority definitions and common-issue table, which are read before the first dimension; read `appendices/check-prd-appendix-guide.md` (5.8k) when writing the final report, except section 2.1 (adjusting focus by PRD type), which is read before the first dimension. Load `references/audit-lifecycle.md` (1.4k) for every audit; it defines the scope of three audit actions and required report metadata |
 | Domain Provider | `references/providers/<domain>/domain-appendix.md` (HR approximately 10.6k), loaded only when the caller explicitly names the domain; a PRD merely appearing to belong to that domain does not count. The Provider defines domain risks and dimension mappings; the body does not duplicate them |
-| Context budget | Always loaded 10² / body 10³ / one dimension 10³–10⁴ / all `references/` approximately 86.2k characters; **never load everything at once** |
+| Context budget | Body 7.5k / all references 88.4k characters (including Providers and the prompt introduction); load only the branches needed for execution |
 
 ## Repository structure
 

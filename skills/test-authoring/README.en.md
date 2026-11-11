@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 1ec7d42100ecac28560881b47a5846f00f96fb3d
+source_version: fa54e0f5441af2046e5358806d88c8692ecd1daf
 ---
 
 This is an English translation of [README.md](README.md); the Chinese original is authoritative.
@@ -40,7 +40,7 @@ Hand off criterion/implementation baselines, actual assertions and covered paths
 | Item | Content |
 | --- | --- |
 | Always loaded | `name` + `description`, approximately 197 characters |
-| On-demand loading | `SKILL.md` body, approximately 3.6k characters |
+| On-demand loading | `SKILL.md` body, approximately 3.7k characters |
 | Secondary loading | Read `references/test-mapping.md` (2.6k) when deriving cases from the PRD; `references/test-conventions.md` (2.5k, naming/layers/decisions) when writing cases and reports; `universal-prompt-intro.md` (0.7k) is for dist builds only |
 | Domain Provider | `references/providers/<domain>/`, currently absent. Domain-specific testing semantics, such as precision rules for a category of monetary values, belong here rather than in the body |
 | Context budget | Always loaded 10² / body 10³ / full content on the order of 10³ characters |

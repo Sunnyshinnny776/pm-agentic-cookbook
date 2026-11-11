@@ -83,6 +83,8 @@ flex items-center gap-3
 | `remind` | 催办 | `Send` | `primary` | Remind subordinate units or users to submit |
 | `history` | 历史 | `History` | `neutral` | Version history, submission history, approval history |
 | `copy` | 复制 | `Copy` | `neutral` | Copy category, template, or configuration |
+| `derive` | 派生 | `Copy` | `neutral` | Create an independent role from an existing role configuration |
+| `revoke` | 撤销 | `RotateCcw` | `warning` | Revoke an active delegation without deleting its history |
 | `process` | 处理 | `ArrowRight` | `primary` | Process todo item or enter next workflow step |
 | `join` | 加入 | `Plus` | `primary` | Join a settlement run or batch |
 | `ignore` | 忽略 | `X` | `neutral` | Ignore pending item or temporarily skip |

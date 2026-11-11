@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: CHANGELOG.md
-source_version: d0ff0a12a01f870e8733313f5262da88dd7c874d
+source_version: 5d4fd1a670e3ee228260256ffabd717fdb35cc5f
 ---
 
 This is an English translation of [CHANGELOG.md](CHANGELOG.md); the Chinese original is authoritative.
@@ -9,6 +9,10 @@ This is an English translation of [CHANGELOG.md](CHANGELOG.md); the Chinese orig
 # Changelog
 
 ## Unreleased
+
+- Route audits through Allow / Ask / Deny based on the current goal and adopted workflow, preserving the complete workflow, independent audits and relevant open findings; add 12 audit-routing evaluation requests.
+- Clarify repairs and rechecks under existing task authorization and restore English context budgets. check-prd, consistency-audit, journey-audit and source-intake are v0.2.1; test-authoring is v0.1.1. Distribution packages match their sources.
+- Extend the reference library with business timezones, persistence and recovery, view invalidation, cross-module references, account navigation and resource tabs, shared overlays and list controls.
 
 ## v0.1.0 (2026-10-19)
 

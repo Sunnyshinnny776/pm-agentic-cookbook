@@ -105,9 +105,19 @@ Use one full-width band for top key metrics instead of multiple separate cards.
 - Every interactive element MUST have hover feedback.
 - Disabled actions MUST use `disabled` or `aria-disabled`.
 - Disabled visual style should be `text-gray-300 cursor-not-allowed` or the shared Button disabled style.
-- Disabled actions should explain why via the shared `<Tooltip>` with an accessible name, nearby `Action Feedback`, or a visible disabled reason.
+- Disabled actions MUST explain why through the [shared Tooltip](./component_usage_spec.md#tooltip), with an accessible name. Native browser `title` attributes are prohibited; nearby feedback may provide additional context.
 - **Pre-execution conflict check**: when an action can conflict with existing data (duplicate identity, in-flight work), the conflict MUST be detected and presented BEFORE the action executes, with the user deciding (exclude conflicting items and continue / cancel). Never execute first and report the skipped part inside a success message.
 - **Uniqueness is enforced at creation, not at a later workflow step**: identity constraints (e.g. one active task per cycle × unit × template) block at create time. Deferring the block to a later step (e.g. dispatch) creates undispatchable zombie drafts and moves the error far from its cause. Later steps only guard state-type conditions (e.g. archived cycle), plus a service-side backstop for race windows.
+
+## Editing a Value the Actor Cannot View
+
+When the actor may edit a field but is not allowed to view its stored value (for example a sensitive amount, where the read response returns 0 for the actor):
+
+- The edit control MUST open blank, never prefilled with the masked value. A prefilled `0` reads as the real value and a re-entered number silently overwrites it.
+- A hint MUST sit next to the control: "无权查看原值，输入新值将覆盖".
+- An existing row whose value was blanked this way MUST NOT be savable while the control is still empty; the actor either enters a new value or deletes the row. Saving must never treat a blanked existing row as an empty row and drop it.
+- An action that consumes the form's content (for example starting a calculation) MUST be blocked by the same invalid or unsaved form state that blocks saving, with a visible reason; it MUST NOT run against content that cannot be saved.
+- A pre-grey or blocking condition shown on the page MUST come from the same decision as the command that enforces it (a flag or reason the service returns), not be recomputed from the masked data the page holds.
 
 ## Modal State Freshness & Container Consistency
 

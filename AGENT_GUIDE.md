@@ -20,11 +20,11 @@ Inspect the skills actually present in this checkout before promising a capabili
 | Compare rules, models, specifications or implementation paths for consistency | `consistency-audit` | Across stages |
 | Capture confirmed reusable rules in the smallest owning spec | `spec-capture` | After confirmed phase work |
 
-Choose by the object and question. A document-quality review and a comparison between multiple artifact types answer different questions. Use the skill's own contract to determine depth and inputs.
+First decide whether the skill's result is required by the current user goal or current step of an adopted workflow. Allow clear matches without repeated confirmation; Ask only when reasonable interpretations differ on the required deliverable and wait for the answer; Deny the extra workflow when it is not needed or is excluded, while continuing the original task. Possible usefulness alone does not justify an Ask. Then choose the method by object and question. Audit routing is owned by process/agent-execution-protocol.md section 6.0; this is behavioral guidance, not runtime permission enforcement.
 
 ## Follow the workflow
 
-Source Intake → Domain Model → Acceptance Criteria → PRD Draft → PRD Audit → UI Prototype → Test → Requirements Acceptance & Final Verification.
+When the user adopts the full product workflow: Source Intake → Domain Model → Acceptance Criteria → PRD Draft → PRD Audit → UI Prototype → Test → Requirements Acceptance & Final Verification. A request for one deliverable does not automatically adopt this entire sequence.
 
 - Establish authoritative source material before deriving business facts. Obtain user confirmation at phase boundaries.
 - Preserve the model-before-PRD order. When a later stage exposes an upstream gap, pause affected work and return to the owning artifact.

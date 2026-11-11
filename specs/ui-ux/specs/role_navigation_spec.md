@@ -39,9 +39,7 @@ This spec applies to Mock RBAC, role-based page isolation, menu visibility, and 
 | What is the predicate? | `can(user, code)` and `inScope(user, org, code)`; the required access class is derived from the code |
 | Which pages are guarded? | Every page node, including the ones that never appear in a menu |
 
-When migrating from an older authorization path, keep exactly one authorization source. **Do not
-build a second one alongside it**, and do not fall back to the old path when the new one denies —
-that turns two guards into an OR and defeats both.
+Equivalent-node mappings must be explicit. With no accessible equivalent, retain the current page if it remains accessible; otherwise follow the parent-menu, Dashboard and first-accessible-page fallback chain. An empty result displays the no-accessible-page state. Keep exactly one authorization source; do not fall back to an older granting path after denial.
 
 ### Navigation derivation
 
@@ -59,9 +57,15 @@ that turns two guards into an OR and defeats both.
 ## Role-Based View Isolation
 
 - Do not merge core workflows for different personas into one page using Tabs or Toggles. For example, `集团管理员` and `门店负责人` plan workflows should use separate pages.
-- Prototypes MUST use the global `RoleContext` and the header role switcher to simulate persona changes.
+- Prototypes MUST use the current-account identity provider and an account switcher to simulate persona changes. Runtime identity is a user account, never a role or position key. A demo account switcher is not an authorization boundary.
 - Sidebar menus and main page content MUST rerender based on the active role.
 - Pages that are not accessible to the active role MUST not be shown as available navigation targets.
+
+### Resource tabs in one authorized workspace
+
+- Tabs may divide resource categories within one business workspace for the same authenticated actor. They must not simulate another role. Use shared PageTabs and show only categories whose view permissions the actor actually holds; a single available category opens directly without an empty tab strip.
+- The owning module documents the existing view codes accepted by a composite entry. Entry visibility and its route guard use their union; each tab and its Service continue to enforce their own view code, sensitive-read permissions and data scope. A write permission alone never grants entry.
+- Keep one sidebar entry for the workspace. Retained legacy URLs remain separately guarded compatibility routes and must not create duplicate sidebar entries or grant an unavailable tab.
 
 ## Data Scope vs Function Permission (Cross-Org Edit Boundary)
 
@@ -74,23 +78,23 @@ that turns two guards into an OR and defeats both.
 
 ## Function Permission Matrix as Executable Data
 
-- The PRD's function permission matrix (chapter 12) MUST be materialized as a single executable configuration (for example `permissionMatrix.ts`), queried through one entry point such as `can(user, code)` / `inScope(user, org, code)`. Whatever the predicate's shape, there is exactly one entry point.
-- Pages and the service layer MUST NOT hard-code scattered role arrays (e.g. `[Role.SYS_ADMIN, Role.GROUP_ADMIN].includes(...)`) for function permissions; every check goes through the matrix.
-- Changing a permission starts in the PRD matrix, then syncs to the configuration. Matrix ↔ PRD consistency is guarded by a full-set assertion test (`permissionMatrix.test.ts`): for each action it asserts the complete authorized role set, so both over-grant and missing-grant fail.
-- Function permission (this matrix) and data scope (`RoleContext` strategies, locked units) remain separate axes and MUST NOT be conflated — see the sections above.
+- The PRD's grants initialize the published seed configuration. Runtime authorization uses the current account and registered permission code through one unified evaluator; pages and services use that same decision source. The static permission matrix is a seed and migration reference, never a second runtime grant source.
+- Pages and services MUST NOT hard-code role arrays for function permissions. Explicit prototype deviations remain registered until their owning capability is defined.
+- Permission changes start in the PRD matrix and synchronize to the configuration. Compare the complete authorized role set in tests so both over-grant and missing-grant fail.
+- Function permission and the data scope derived per permission code remain separate axes and MUST NOT be conflated.
 
 ## Role vs Post (Position) Layering
 
-- A **Role** is an org-agnostic permission subject class; a **Post** is that role instantiated on a concrete organization (e.g. role `区域管理员 REGION_ADMIN` → posts `东区管理员`, `西区管理员`). Roles own menus, data-scope strategy, and permission-matrix keys; posts own the display name, job title, and the concrete org anchors (`unitId` / `regionId`).
-- The header switcher lists **posts** (display name + mapped role as subtitle); authorization always resolves through the post's mapped role. Adding an organization means adding a post row only — role definitions and the permission matrix stay untouched.
-- Org data-scope resolution combines both layers through a single entry point (`orgInScope`): the scope **type** comes from the role's data-scope strategy (global / region / self-level), the concrete **org** comes from the current post's anchors. Services and pages MUST NOT hard-code org IDs against roles (e.g. `role === REGION_ADMIN → 'region-east'` is prohibited); service commands/queries accept anchor parameters and pass them to the resolver.
-- PRD role sections MUST reference the project's unified role metadata source (for example `roleMetadata.ts` plus its owning PRD role-definition chapter) instead of inventing module-local roles. Existing roles that do not participate in a module are registered explicitly as "no permission" rather than omitted, so absence is a decision, not an oversight.
+- A **Role** defines grant configuration and default scope tiers. Function nodes own navigation hierarchy and destinations; topology is derived from those nodes and effective permissions. A **Post** supplies demo seed display information and organization anchors. Runtime identity is the account; effective role sources carry their own assignment or position anchors.
+- The account switcher lists enabled demo accounts, with held roles as contextual information. Authorization resolves through each account's effective roles. Adding an organization does not require changing role definitions or the permission matrix; its demo position and account are configured separately.
+- Resolve organization scope through the unified evaluator: scope tiers come from the effective role and organization anchors come from the grant. Pages consume the result per permission code. Services and pages MUST NOT hard-code organization IDs against roles.
+- PRDs reference the project's unified role metadata source instead of inventing module-local roles. Roles that do not participate in a module are registered explicitly as having no permission, so absence is a decision rather than an oversight.
 
 ## Role Switching
 
 - Every new page or feature MUST integrate with the global role-switching logic.
-- When the user switches role from the header, the app should first navigate to the equivalent functional node for the new role.
-- If no equivalent node exists, fallback to the first accessible page in the same parent menu.
+- When the user switches role from the header, the app should first navigate to an explicitly mapped equivalent functional node that the new role can access.
+- If no accessible equivalent node exists, retain the current page if the new role can still access it. Only when the current page is inaccessible, fallback to the first accessible page in the same parent menu.
 - If the parent menu is also inaccessible, fallback to Dashboard.
 - **Dashboard is itself a permission-guarded page**, so the fallback chain
   can run out. If Dashboard is inaccessible but other pages remain, go to the first accessible page in
@@ -101,7 +105,7 @@ that turns two guards into an OR and defeats both.
 - **Switching identity must clear what the previous identity could see**: lists, opened detail
   drawers, cached sensitive values and modals. A response that arrives late for the previous
   identity must not be written into the current view.
-- **The acting role / post MUST survive a page reload and browser forward-back.** Persist it (e.g. `localStorage`), validate the stored value against the post metadata so a stale or hand-edited entry falls back to the default, and treat a storage failure as non-fatal for the switch itself.
+- **The acting account MUST survive a page reload and browser forward-back.** Persist the user id (e.g. `localStorage`) and treat a storage failure as non-fatal for the switch itself. A stored value that names no enabled account (deleted, disabled, hand-edited, or an unrecognised legacy value) yields **no identity**: show the no-identity state, never fall back to the default account or to a superadmin view. Only the absence of any stored value (first entry) signs in the demo account.
 - This is not only a comfort rule. A role that resets on reload makes permission scenarios **unconstructable in E2E walkthroughs**: the walkthrough navigates to the page under test, the reload resets the role, and the no-permission branch can never be reached. Prototype role state that only lives in memory silently caps what the test layer can cover.
 
 ## Role Equivalent Node Mapping
@@ -110,7 +114,7 @@ that turns two guards into an OR and defeats both.
 - When role switching from one persona-specific node to another role with an equivalent node, navigate to the equivalent node instead of falling back to a generic default page.
 - Equivalent node mapping MUST be explicit in navigation metadata or a central route mapping. Do not infer equivalence from similar page names only.
 - Equivalent nodes must preserve the user's workflow context where possible, such as selected cycle, organization, task, package, or source entry point.
-- If the target role cannot access the equivalent node, use the standard fallback order: first accessible page in the same parent menu, then Dashboard.
+- If the target role cannot access the equivalent node, retain the current page if it remains accessible. Otherwise use the Role Switching fallback chain: first accessible page in the same parent menu, then Dashboard, then the first accessible page in navigation order, or the no-accessible-page state when none remain.
 - Workflows owned by external systems are not role-equivalent pages of the business system. Its routes may expose traceable records, snapshots, attachments, external process IDs, and callback results according to the relevant integration spec, but they must not act as external workflow operation pages or receive undocumented deep links from external systems.
 
 ## Sidebar Navigation Menu Hierarchy

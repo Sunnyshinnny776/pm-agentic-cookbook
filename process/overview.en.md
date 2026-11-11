@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: overview.md
-source_version: be5745e2a1588a360f9b413f0124f3707fbdc8ab
+source_version: a22aaeacb3f7127113326050ef8f2237a617e13d
 ---
 
 This is an English translation of [overview.md](overview.md); the Chinese original is authoritative.
@@ -11,6 +11,8 @@ This is an English translation of [overview.md](overview.md); the Chinese origin
 > PM Agentic Cookbook’s central navigation guides PMs through every stage from requirements to launch.
 
 ---
+
+The stage relationships apply to an adopted full product workflow. A standalone request requires only its agreed result. Audit invocation first follows Allow / Ask / Deny in [execution protocol section 6.0](agent-execution-protocol.md#60-调用判断allow--ask--deny); artifact types or task completion alone do not start an audit.
 
 ## Workflow overview
 

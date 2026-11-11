@@ -34,6 +34,7 @@ This spec governs the search and filter workspace of a main business list. Modul
 - Search inputs, selectors, query actions, reset actions, and the more button share a 38px control height and align to the bottom edge.
 - The complete toolbar action group is the final flex item and uses `ml-auto` with right justification. It stays aligned to the list's right edge whether it remains on the filter row or wraps onto a new row.
 - Every search or filter control displays a short title above it using `text-xs text-gray-500`.
+- Single-select and multi-select indicators share a 16px `ChevronDown` in `text-gray-400`, vertically centered with 12px right padding. A native single select uses `appearance-none`, reserves space for the shared indicator, and renders it as a non-interactive overlay; do not expose the browser's unstyled arrow. Keep native selection and keyboard behavior.
 
 ## Query Lifecycle
 
