@@ -45,6 +45,7 @@ This spec applies to user hints, validation, warnings, errors, success feedback,
 - Success Toast width follows content with `w-fit` plus viewport max-width protection.
 - Success Toast style: gray background (#F9FAFB), subtle gray border (#E5E7EB), dark green text (#166534), left-aligned content, `rounded-[14px]`, `px-5 py-3.5`, `text-sm`.
 - Error Toast shares the Success Toast container exactly — same position, width behaviour, radius, padding and text size — and differs only in tone: `text-red-700` with icon `text-red-600`, per the Error row of Tone Mapping. Keeping one container means the two toasts read as one system rather than two competing shapes.
+- Both Toast types render in the document-level overlay root above active business dialogs. Their viewport anchor must not be changed by a page transform or hidden by a modal backdrop; keeping the draft dialog open must not obscure a command refusal.
 - Context Callout: `rounded-lg border px-4 py-3 flex items-start gap-2.5 text-sm`.
 
 ### Actionable Work Summary Callouts
@@ -82,7 +83,7 @@ This spec applies to user hints, validation, warnings, errors, success feedback,
 ## Layer Boundary (Guarded Commands)
 
 - The state / service layer MUST NOT render any UI feedback (`alert`, toast, modal, etc.).
-- Guarded commands surface rejection as a returned error value (e.g. `GuardedCommandResult.error`); the calling page presents it using this spec's taxonomy (usually Action Feedback next to the triggering control).
+- Guarded commands surface rejection as a returned error value (e.g. `GuardedCommandResult.error`); the calling page presents a command refusal as an Error Toast under this spec's taxonomy.
 - Success feedback fires ONLY after the command result confirms success. A guarded command that returns an error must never trigger the success path.
 
 ## Precedence over Loose PRD Wording

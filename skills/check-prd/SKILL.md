@@ -1,6 +1,6 @@
 ---
 name: check-prd
-description: Review B端 PRDs, requirement docs, SaaS or enterprise product specs, and system design documents with a 14-dimension quality framework, plus domain-specific checks from a domain Provider when the caller names the domain. Use this whenever the user asks to check, review, critique, improve, or find gaps in a PRD, 需求文档, 产品方案, B端系统设计, SaaS spec, HRM spec, or similar design document, even if they only say "帮我看看这个 PRD/方案/需求".
+description: 审查 B 端需求文档与产品方案的质量、完整性及可实施性，产出有依据的问题与改进建议。当前任务需要该质量判断或已采用工作流进入 PRD 审查时使用。明确需要则执行；交付目标存在实质歧义时先问；明确不需要则不调用。调用方指定领域时加载对应 Provider。
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -15,9 +15,15 @@ disable-model-invocation: false
 
 支持用户显式调用（传入被审文档路径，需要领域专项时同时给出领域名）和模型自动触发（当用户明确要求审查 PRD、需求文档、产品方案或企业系统设计时）。
 
-**执行者与上下文隔离**：本 skill 属审计类。若当前 Agent 是被审 PRD 的作者，必须委派独立子代理执行本 skill——作者上下文携带对自身产出的辩护，自审必然偷懒。首次审计与 M2 完整重审使用 fresh auditor；M1 定向复审可复用未参与修复的上一轮独立审计者。派发时按本 skill 所在 cookbook 的 Agent 执行协议（`<cookbook>/process/agent-execution-protocol.md`）第 3 节给出完整合同；本 skill 单独安装、取不到该协议时，派发 prompt 至少写明被审 PRD 与 Oracle 的路径、输出位置、完成标准、「只报告、不宣告通过」、对抗式立场（任务是找出问题，不采信作者的自述）与中断落盘（边审边把已完成部分写进报告文件），并在报告中注明未按协议全文派发；主 Agent 只回收并原样转呈审计报告，不得改写结论。审计结论是呈给用户裁定的证据，任何执行者都不得宣告"审计通过、可推进"。
+## 调用判断
 
-**审计权限**：本 skill 对被审产物始终为 report-only，不得修改 PRD、Domain Model、spec、源码或测试，也不修改问题登记表、不删除或标记任何其它文件——只写本次报告。Focused recheck 先按当前文件完成判定，再逐项核销派发方给出的全部未关闭条目；没有旧条目时验证派发列出的 local change target、受影响维度和邻接回归。新发现使用独立编号进入“新增发现”章节。主 Agent 原样报告，是否修复或发起下一轮复审由用户决定。
+先判断本 skill 的产出是否属于用户当前目标或已采用工作流的当前步骤。Allow：明确需要则执行，不重复确认。Ask：上下文支持需要与不需要本产出的两种合理解释，且会改变交付范围时，简述差别和建议并等待答复。Deny：明确不需要或用户排除时，完成原任务与作者检查，不调用、不额外询问。不能因可能有帮助、读过材料或自行增加报告而建立调用依据。
+
+已确认目标在范围不变时持续有效；明确需要但缺输入时只补输入。Ask 未获答复不执行，Deny 不拒绝原任务。这是行为约定，无运行时权限拦截。以下隔离、取证与报告要求仅在所需阶段获 Allow 后适用；读取本文件不等于启动流程。
+
+**执行者与上下文隔离**：调用判断为 Allow 后，本 skill 属审计类。若当前 Agent 是被审 PRD 的作者，必须委派独立子代理执行本 skill——作者上下文携带对自身产出的辩护，自审必然偷懒。首次审计与 M2 完整重审使用 fresh auditor；M1 定向复审可复用未参与修复的上一轮独立审计者。派发时按本 skill 所在 cookbook 的 Agent 执行协议（`<cookbook>/process/agent-execution-protocol.md`）第 3 节给出完整合同；本 skill 单独安装、取不到该协议时，派发 prompt 至少写明被审 PRD 与 Oracle 的路径、输出位置、完成标准、「只报告、不宣告通过」、对抗式立场（任务是找出问题，不采信作者的自述）与中断落盘（边审边把已完成部分写进报告文件），并在报告中注明未按协议全文派发；主 Agent 只回收并原样转呈审计报告，不得改写结论。审计结论是呈给用户裁定的证据，任何执行者都不得宣告"审计通过、可推进"。
+
+**审计权限**：本 skill 对被审产物始终为 report-only，不得修改 PRD、Domain Model、spec、源码或测试，也不修改问题登记表、不删除或标记任何其它文件——只写本次报告。Focused recheck 先按当前文件完成判定，再逐项核销派发方给出的全部未关闭条目；没有旧条目时验证派发列出的 local change target、受影响维度和邻接回归。新发现使用独立编号进入“新增发现”章节。主 Agent 原样转呈报告；已获任务授权的作者按宿主规则处理范围内修复与规定复核，无需重复确认。业务取舍、修改 Oracle 或扩范围交用户裁定；无宿主规则时遵循调用方已有授权；授权不足才询问。
 
 **本 skill 只回答“这份需求文档本身写得好不好”。** 需求文档与模型、代码、图示、测试规格之间是否一致不在本 skill 的标准里，发现线索时记为“建议一致性审计复核”。变更等级、修复批次、问题登记与原文清理由派发方处理。每次审计都先加载下列文件，它规定三种审计动作在本 skill 下的范围与报告必须包含的元信息：
 
@@ -191,7 +197,7 @@ Overview PRD 不应因缺少页面级查询条件、列表字段、按钮、弹�
 
 **停下交用户**：被审文档与其依据（数据模型、源材料、裁定）冲突且无法判断以谁为准；缺少的上下文材料使某个维度整体无法判定。
 
-不宣告"审计通过"；是否修复、是否复审由用户决定。
+不宣告"审计通过"；审计者交付报告即结束，后续处置遵循“审计权限”的授权边界。
 
 ## 工作风格
 

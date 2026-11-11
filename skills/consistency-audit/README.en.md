@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 23840280bf06bfa89fbab1f617493084cbe940fe
+source_version: 3c2a4547e3d89eb921bcebf0d169905cd0303506
 ---
 
 This is an English translation of [README.md](README.md); the Chinese original is authoritative.
@@ -26,9 +26,9 @@ The hardest discrepancies to find are “partially satisfied”: a rule holds on
 
 ## Place in the workflow
 
-- Use for batches containing two or more kinds of reviewed object: rules and code, requirements and models, diagrams and models, catalogs and code mirrors, or test specifications and rules.
+- Use when the current goal or adopted workflow requires a consistency conclusion about product artifacts. Object count selects a method; it does not establish a need to invoke it.
 - Use this skill for an independent audit of a code implementation batch, rather than a requirements quality framework.
-- The dispatcher supplies the Oracle and comparison objects. The auditor writes only the report; the dispatcher manages older reports.
+- Ask and wait only when the required result is materially ambiguous. If it is clearly not needed, complete the original task without an extra question. The dispatcher supplies the Oracle and comparison objects; the auditor writes only the report.
 
 ## Acceptance criteria integration
 
@@ -40,15 +40,15 @@ Delivery checks may compare scope/criteria with implementation, evidence, and th
 
 | Item | Content |
 | --- | --- |
-| **Always loaded** | `name` + `description`, approximately **232 characters** |
-| **On-demand loading** | `SKILL.md` body, approximately **3.4k characters**; loaded on explicit invocation or recognition of consistency audit, reconciliation, rule compliance checks, or independent code-batch audit |
+| Always loaded | `name` + `description`, 138 characters |
+| On-demand loading | `SKILL.md` body, approximately 3.8k characters; loading it does not itself authorize execution |
 | **Secondary loading** | Three references, approximately **4.9k characters** total, read by step:<br>· `verdicts.md` (1.9k) when judging items<br>· `evidence-methods.md` (1.3k) when finding implementation locations and choosing evidence methods<br>· `report-format.md` (1.6k): section 1 at audit start, section 2 when writing the report |
 | **Domain Provider** | `references/providers/<domain>/`, with no domain Provider included. Its `README.md` describes what an appendix supplies and is not loaded during execution |
-| **Context budget** | Always loaded 10² / body 10³ / all references on the order of 10³ characters; full loading approximately 8.3k |
+| Context budget | Body 3.8k / all references 5.7k characters (including Providers and the prompt introduction); load only the branches needed for execution |
 
 ## Usage
 
-- **Claude Code / Codex**: put this directory in the project-level or user-level skill directory. Invoke “consistency audit” explicitly or let the description trigger it.
+- **Claude Code / Codex**: put this directory in the project-level or user-level skill directory. Automatic invocation remains available when the result is clearly required; follow Allow / Ask / Deny in SKILL.md. This behavioral contract does not enforce host permissions.
 - **Any LLM**: paste `dist/consistency-audit-universal-prompt.md`, then supply the Oracle and comparison objects.
 
 ## Directory structure

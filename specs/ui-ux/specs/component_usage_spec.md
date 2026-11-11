@@ -33,11 +33,14 @@ Business pages MUST use shared components whenever they cover the need:
 - `<FeedbackMessage />`, `<AlertBanner />`, `<SuccessToast />`
 - List-query primitives from the shared list-query component module, composed according to [List Query Spec](./list_query_spec.md)
 
+The shared Table supports optional controlled row expansion and a highlighted object key. Expanded diffs remain subordinate content and reuse the readonly detail renderer. A retained historical target may be highlighted without exposing a command that is no longer available. A matrix with grouped rows and dynamic columns may use a dedicated table when the shared Table cannot represent its structure; fixed identity-column widths must match their sticky offsets.
+
 ## List Query Components
 
 - `<ListQueryToolbar>` owns the neutral continuous toolbar surface, wrapping, gap, and bottom alignment.
 - `<ListQueryField>` provides the standard field-title treatment for non-search controls such as dates; `<ListSearchField>` owns the search icon, concise placeholder presentation, line-break stripping, Enter submission, and 38px input geometry.
 - `<ListSelectFilter>` is for a PRD-defined single-select field. `<ListMultiSelectFilter>` is the default for status dimensions and owns `全部` / `已选 N 项`, accessibility, outside-click closing, and Escape closing.
+- A multi-select consumer whose empty selection is invalid supplies an explicit all-selection set. The all option selects that set; the consumer enforces its minimum selection and presents feedback.
 - `<ListQueryActions>` owns the right-aligned toolbar action group plus query, pending, and reset button presentation. Pass more-menu and list-level action buttons as its children so the group preserves global order and wrapping; the page still owns draft/submitted state, trimming on submit, default-query comparison, page reset, and Service invocation.
 - `<ListMoreMenu>` owns the ellipsis trigger, permission-filtered item rendering supplied by the page, anchored panels, outside-click closing, and Escape closing.
 - `<ColumnSettingsPopover>` receives user-visible Chinese table labels and never derives labels from DTO keys.
@@ -76,7 +79,7 @@ Business pages MUST use shared components whenever they cover the need:
 
 ## Page-Level Tabs
 
-- A page-level primary view switch MUST use the shared `<PageTabs />` component. This applies when tabs switch the main business view beneath a page title, including a main-view switch placed at the top of the page's continuous content container.
+- A page-level primary view switch MUST use the shared `<PageTabs />` component. Place the strip beneath the page title on the page background, before the switched workspace and its list header; do not embed it inside the white list Card. The switched content starts 16px below the strip.
 - Each tab MUST include a 16px Lucide icon and a concise text label. The shared visual contract is `gap-2`, `px-6 py-3`, `text-sm`, and `font-medium`.
 - The tab list MUST use a neutral bottom divider. The active tab uses a white surface, neutral border, no bottom border, rounded top corners, and `text-primary-600`; the active surface covers the divider by 1px. Inactive tabs use transparent borders and neutral text with a light hover surface.
 - Every instance MUST provide a descriptive `ariaLabel`; the shared component supplies `tablist` / `tab` roles and `aria-selected`.
@@ -101,6 +104,7 @@ Business pages MUST use shared components whenever they cover the need:
 - A main business list MUST place its list title, search/filter toolbar, conditional batch-action bar, table body, and pagination inside one continuous container. These elements form one query-and-operation workspace and must not be split into separate floating cards.
 - The list header is the first section of that container and displays only the list title using `text-base font-bold text-gray-800`.
 - The list header uses `px-6 py-4` and a neutral bottom divider. The query toolbar follows inside the same container, then the conditional batch-action bar, table body, and pagination in that order.
+- Use the shared Card content inset (`p-6`) for the query toolbar, table viewport, and pagination. Keep these regions inside the padded content boundary instead of stretching the table to the outer Card border. Horizontal table content scrolls within that viewport; it must not escape the Card. Use 16px between the toolbar and table.
 - Search, filter, query-action, more-menu, and column-setting behavior MUST follow [List Query Spec](./list_query_spec.md).
 - The page-level create action belongs at the right end of the search/filter toolbar. Keep the list title area descriptive; do not place a duplicate primary action beside the title.
 - The batch-action bar appears between the toolbar and table only after selection, following [Action Icon Spec](./action_icon_spec.md). Its appearance must not create a second nested card.
@@ -143,3 +147,4 @@ Business pages MUST use shared components whenever they cover the need:
 - **Sizing & Typography**: The tooltip font size MUST be exactly `text-[13px]` (13px), which is 1 point larger than default browser tooltips (12px), enhancing readability.
 - **Visual Theme & Geometry**: The tooltip MUST be rendered as a clean **rounded-rectangle** shape (without any speech bubble pointer/arrow). It displays the text content directly without any leading icons or markers. It uses a grayscale color theme: background `#f3f4f6` at 95% opacity (`bg-gray-100/95`), border color `#e5e7eb` (`border-gray-200`), font color `#4b5563` (`text-gray-600`), and a default normal font weight (`font-normal` / not bolded) to maintain a clean B2B look.
 - **Hover Trigger Delay**: To prevent visual noise during quick sweeps of the mouse, the hover display transition MUST trigger exactly after **0.5 seconds** (500ms) of cursor hover.
+- **Layering and Viewport**: Tooltips MUST remain visible above the active surface and within viewport bounds, including inside scrolling tables and Drawer/Modal footers. The shared component owns overlay positioning; consumers MUST NOT add page-local tooltip layers to escape clipping.

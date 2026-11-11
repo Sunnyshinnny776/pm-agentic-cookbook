@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 365c3761c94e824c1f0ff34389c181ccd083ced9
+source_version: f54173932e4585cfa03e09e61a0003bbba984483
 ---
 
 This is an English translation of [README.md](README.md); the Chinese original is authoritative.
@@ -21,7 +21,7 @@ The report includes P0–P3 severity and decision columns, and **explicitly list
 
 ## Executor isolation
 
-This is an audit skill. An Agent that authored the artifact must dispatch an independent subagent with complete cold-start inputs according to `process/agent-execution-protocol.md`.
+First apply Allow / Ask / Deny to the required result. Stage A creates coverage without automatically starting Stage B. Author isolation applies only after the Stage B or walkthrough task is established: authors may not audit their own artifacts; dispatch an independent executor under `process/agent-execution-protocol.md`. This behavior does not enforce host permissions.
 
 ## Acceptance criteria integration
 
@@ -33,11 +33,11 @@ Hand off final scope, criterion/implementation versions, actual paths, step loca
 
 | Item | Content |
 | --- | --- |
-| Always loaded | `name` + `description`, approximately 380 characters; the two-stage semantics require a longer description |
-| On-demand loading | `SKILL.md` body, approximately 7.0k characters |
-| Secondary loading | Load by stage and purpose, **never all at once**: Stage A uses `coverage-manifest.md` (2.6k) and `coverage-boundary.md` (2.4k); Stage B uses `audit-dimensions.md` (5.1k); capture rules use `capture-format.md`; dist builds use `universal-prompt-intro.md` (1.6k) |
+| Always loaded | `name` + `description`, 149 characters |
+| On-demand loading | `SKILL.md` body, approximately 7.5k characters; loading it does not itself authorize execution |
+| Secondary loading | Load by stage and purpose, **never all at once**: Stage A uses `coverage-manifest.md` (2.6k) and `coverage-boundary.md` (2.3k); Stage B uses `audit-dimensions.md` (5.1k); capture rules use `capture-format.md`; dist builds use `universal-prompt-intro.md` (2.0k) |
 | Domain Provider | `oracle-map.md`, `capture-anchors.md`, and `baseline.md` under `references/providers/<domain>/`; **load only the Provider for the audited module’s domain** |
-| Context budget | Always loaded 10² / body 10³ / one stage including Provider on the order of 10⁴ characters; all of `references/` is approximately 21.0k and should not be loaded together |
+| Context budget | Body 7.5k / generic references 14.7k characters (including the prompt introduction; domain Providers are counted separately); load only the branches needed for execution |
 
 ## Directory structure
 

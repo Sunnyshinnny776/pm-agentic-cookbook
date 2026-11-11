@@ -1,7 +1,7 @@
 ---
 authority: zh
 translation_of: README.md
-source_version: 4fb63218fe7752d35a49e2119eca6d59f4802a23
+source_version: b8b326865f544a8f52132fc24e088176ac4766c3
 ---
 
 # PM Agentic Cookbook
@@ -23,6 +23,12 @@ You do not need deep programming experience. With a method for working with AI, 
 3. 🎨 Front-end code prototype demos for quick validation, and complex tables
 4. 🧪 Tests derived from requirements, end-to-end journey audits and consistency audits
 5. 📚 Capturing reusable rules into specs at the end of each stage
+
+## Current usage boundaries
+
+An audit starts when its result is required by the current goal or adopted workflow: execute when clearly needed, ask only about material ambiguity, and otherwise continue the original task. Source intake does not automatically start later audits, and generating an E2E coverage checklist does not automatically start a journey audit. An adopted complete product workflow retains its stage relationships.
+
+Auditors only report. Authors with existing task authorization handle in-scope repairs and prescribed rechecks under host rules; business choices and scope expansion remain the user's decision. Each skill's CHANGELOG lists its current version and migration guidance.
 
 ## What's new in v0.1.0
 

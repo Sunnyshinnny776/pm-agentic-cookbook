@@ -102,17 +102,19 @@ bash scripts/install.sh          # Mac/Linux
 
 详见分支：[check-prd-skill 飞书 CLI 协作版](https://github.com/pmYangKun/check-prd-skill/tree/check-prd-skill飞书CLI协作版(Special-tks-to-Scofy))
 
+当前目标或已采用流程需要 PRD 质量结论时直接执行；目标有实质歧义时先问并等待，明确不需要时不调用、不额外询问。SKILL.md 的 Allow / Ask / Deny 为行为约定，保留自动发现，不提供宿主级拦截。
+
 ## Model Experience
 
 字符数按 Unicode code point 统计；正文不含 frontmatter，全量 references 包含 Provider 与通用 Prompt 开篇。字符数不等同于 token 数。
 
 | 项 | 内容 |
 | --- | --- |
-| 常驻部分 | `name` + `description`，**431 字符**。catalog description 的常见上限是 500，超出部分从**尾部**截断，而尾部正是触发短语所在——改动前先量长度，留足余量 |
-| 按需加载 | `SKILL.md` 正文约 7.0k 字符 |
+| 常驻部分 | `name` + `description`，136 字符 |
+| 按需加载 | `SKILL.md` 正文约 7.5k 字符；读取不自动授权执行 |
 | 二级加载 | **按维度逐份读，不整体加载**：`references/dimensions/` 14 份共约 61.0k 字符，审到第 N 维才读第 N 份（3.0k–7.1k 不等）；`appendices/check-prd-appendix-veto.md`（4.4k）在汇总重大风险项时读，其中「问题优先级说明」与常见问题对照表在第一个维度之前读；`appendices/check-prd-appendix-guide.md`（5.8k）在生成最终报告时读，其中 2.1 节按 PRD 类型调整检查侧重的表在第一个维度之前读；`references/audit-lifecycle.md`（1.4k）每次审计都加载，规定三种审计动作在本 skill 下的范围与报告必须包含的元信息 |
 | 领域 Provider | `references/providers/<domain>/domain-appendix.md`（HR 域约 10.6k）——仅当调用方明确指定了该领域时加载（被审 PRD 看起来属于某个领域不算指定），其领域风险项与维度映射由 Provider 定义，正文不复制 |
-| 上下文预算 | 常驻 10² / 正文 10³ / 单维度审查 10³–10⁴ / 全量 `references/` 约 86.2k 字符，**任何情况下都不应一次读完** |
+| 上下文预算 | 正文 7.5k / 全量 references 88.4k 字符（含 Provider 与 Prompt 开篇）；执行时只加载所需分支 |
 
 ## 仓库结构
 

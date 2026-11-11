@@ -15,7 +15,7 @@
 
 ## 执行者隔离
 
-本 skill 属审计类。若当前 Agent 是被审产物的作者，必须按 `process/agent-execution-protocol.md` 派发独立子代理冷启动执行。
+先按所需产出判断 Allow / Ask / Deny；阶段 A 生成覆盖清单，不自动进入阶段 B。阶段 B 与照单走查的作者隔离仅在对应任务成立后适用：作者不得审自己的产物，按 `process/agent-execution-protocol.md` 派发独立执行者。该判断不提供宿主级权限拦截。
 
 ## 验收标准接入
 
@@ -27,11 +27,11 @@
 
 | 项 | 内容 |
 | --- | --- |
-| 常驻部分 | `name` + `description`，约 380 字符（两阶段语义需要在 description 里说清，故偏长） |
-| 按需加载 | `SKILL.md` 正文约 7.0k 字符 |
-| 二级加载 | 按阶段与用途分批，**不整体加载**：阶段A 读 `coverage-manifest.md`（2.6k）与 `coverage-boundary.md`（2.4k）；阶段B 读 `audit-dimensions.md`（5.1k）；采集规则用 `capture-format.md`；构建 dist 时读 `universal-prompt-intro.md`（1.6k） |
+| 常驻部分 | `name` + `description`，149 字符 |
+| 按需加载 | `SKILL.md` 正文约 7.5k 字符；读取不自动授权执行 |
+| 二级加载 | 按阶段与用途分批，**不整体加载**：阶段A 读 `coverage-manifest.md`（2.6k）与 `coverage-boundary.md`（2.3k）；阶段B 读 `audit-dimensions.md`（5.1k）；采集规则用 `capture-format.md`；构建 dist 时读 `universal-prompt-intro.md`（2.0k） |
 | 领域 Provider | `references/providers/<domain>/` 下的 `oracle-map.md`、`capture-anchors.md` 与 `baseline.md`——**仅加载被审模块所属领域的那一份** |
-| 上下文预算 | 常驻 10² / 正文 10³ / 单阶段含 Provider 10⁴ 字符量级；全量 `references/` 约 21.0k，不应一次读完 |
+| 上下文预算 | 正文 7.5k / 通用 references 14.7k 字符（含 Prompt 开篇；具体领域 Provider 另计）；执行时只加载所需分支 |
 
 ## 目录结构
 

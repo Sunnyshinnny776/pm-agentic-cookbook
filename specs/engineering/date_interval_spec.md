@@ -22,6 +22,12 @@ The owning domain spec still defines what an interval means for its business obj
 
 This spec does not define settlement-month generation, settlement-cycle anchors, authorization expiry policy, approval lifecycle, audit-event retention, or UI-specific query-span limits. Those rules remain in their owning PRD, Domain Model, integration spec, or UI spec.
 
+## Business timezone
+
+The owning business contract declares the timezone used for timestamp display, the derivation of the business date and “today”, and conversion between date-only input and timestamp boundaries. For example, a domestic China deployment may use Beijing time (`Asia/Shanghai`, UTC+08:00). The browser or host timezone must not change the declared business-time results.
+
+A date-only value remains a `DATE`. Timestamps remain instants and may be stored or transported in UTC with an explicit offset; render them in the declared business timezone. Display conversion does not rewrite the stored instant.
+
 ## Canonical temporal types
 
 ### Business `DATE`

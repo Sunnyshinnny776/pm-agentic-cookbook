@@ -45,6 +45,9 @@ Every module splits into three files/layers:
 - The mock service implementation treats storage as the single source of truth: read + reconcile on access, persist on commit. No module-level singleton in-memory cache.
 - Rationale: a cached singleton can leak state across tests after the per-test storage stub is cleared, and can desynchronize multiple provider instances. Stateless repositories reset naturally when storage is cleared.
 - All storage access goes through the module's storage wrapper (`<module>Storage.ts`) with versioned one-shot migration.
+- A controlled replacement binds an explicit selection to a detached preview of the observed state. The owner must compare and commit against that state within an atomic boundary covering every writer of the key, including migration and backfill; a lock used only by the new command is insufficient. Recheck trusted identity and authorization inside the boundary, commit business changes with their audit evidence, and fail closed when the capability is unavailable. An uncertain result is reconciled by its original request identifier without rollback or automatic replay.
+- A protected read that commits access evidence may revalidate its confirmed source while that same evidence write is pending. Only the internally assigned operation ID may identify that pending write; unrelated pending operations still block the read. After confirmation, recheck authorization and source freshness without the pending-write exception before returning protected content.
+- Recovery journals may deduplicate repeated image strings and fragments only through a lossless versioned representation. Decoding must restore the exact original owner strings, receipt identities, results and states for recovery and replay. Preserve legacy decoding without rewriting on read; reject corrupt references and unsupported versions without replacing stored data. Deduplication does not remove receipts or waive finite storage failures.
 
 ## Single-Key Initial Persistence
 
@@ -54,6 +57,11 @@ Every module splits into three files/layers:
 - Missing or unavailable locking must fail closed. Read failure before writing prevents the write; a failed write is reported as not applied only when rereading proves the key still absent. A failed or mismatching verification, or failure after a write attempt whose result cannot be established, returns an explicit unconfirmed outcome.
 - An unconfirmed outcome never triggers rollback, reseeding or overwrite. Recovery rereads the persisted owner; repeated initialization refuses an existing key. Single-key persistence does not prove a consumer switch or a transaction across stores.
 - Initialization repositories are infrastructure, with injected storage and locking. The owning Service remains responsible for trusted identity, current authorization, authoritative producer facts and command context; repositories must not install browser defaults or permission substitutes.
+
+## View Invalidation and Command Outcomes
+
+- Configuration invalidation tokens use the caller-visible business revisions and references. Appended access evidence or operation history does not change the business token; recovery/read-only state is reported separately. Same-context notifications defer their probe until the initiating Service calls settle.
+- A changed token invalidates cached reads and ephemeral protected views. Retain in-flight command outcomes above those views so closing or rebuilding a view cannot lose an unconfirmed operation identifier. Refresh never replays commands, and unrelated storage or personal-preference events do not invalidate business configuration.
 
 ## Two-Layer Guards (page affordance + service guard)
 
@@ -75,7 +83,10 @@ Every module splits into three files/layers:
 - A producer module exclusively owns its entities, storage key, state transitions, and access rules. Consumers obtain cross-module data only through the producer Service's query and command contracts; pages and storage wrappers must not read or write another module's persisted snapshot directly.
 - Define the smallest stable contract before connecting two modules: stable IDs, status and time semantics, versioning, access boundaries, and failure results. Do not create dependent mock business data before its owning module and Service contract are ready.
 - Connect stable modules incrementally. Replace one consumer seed-data dependency with the producer Service, then verify data propagation, permission rejection, missing references, and invalid state handling before connecting the next dependency.
+- Dispatch persisted data to the reader and writer that own its schema version. Compatibility readers and serializers must reject newer owner facts instead of downgrading, reseeding or copying them into older mutable structures. Derived catalog revisions are query tokens and must not be accepted as owner facts.
 - When a downstream business record is created, revalidate referenced data and freeze the required IDs, versions, time range, and immutable snapshot or hash. Later master-data changes must not rewrite the historical business record.
+- Keep a producer reference scope open from preparation through the consumer transaction commit. Recheck external proof tokens immediately before commit and expire the scope on exit; a local coordinator protects only writers that participate in it and cannot prove atomicity with remote sources. Do not report a failed command by adding a new validation after its transaction has committed.
+- A submitted directory choice preserves its provider-owned identifier and expected directory version. Resolve the choice again inside the write boundary and verify that its binding still matches the submitted references; directory selection evidence does not replace the business record's own contract snapshot.
 
 ## Money Arithmetic
 
@@ -86,4 +97,5 @@ Every module splits into three files/layers:
 
 ## Identifiers
 
+- Consumers preserve provider-owned external IDs as opaque identifiers and validate them through the owning producer. They must not invent replacement IDs or infer identity/ownership from a string pattern.
 - Entity IDs use `crypto.randomUUID()`; derived records that must be idempotent (e.g. ledger entries) use deterministic IDs built from their source business key.

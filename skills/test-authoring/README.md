@@ -34,8 +34,8 @@
 | 项 | 内容 |
 | --- | --- |
 | 常驻部分 | `name` + `description`，约 197 字符 |
-| 按需加载 | `SKILL.md` 正文约 3.6k 字符 |
-| 二级加载 | `references/test-mapping.md`（2.6k）在从 PRD 推导用例时读；`references/test-conventions.md`（2.5k，命名/分层/裁定约定）在实际写用例与报告时读；`universal-prompt-intro.md`（0.7k）仅构建 dist 用 |
+| 按需加载 | `SKILL.md` 正文约 3.7k 字符 |
+| 二级加载 | `references/test-mapping.md`（2.6k）在从 PRD 推导用例时读；`references/test-conventions.md`（2.4k，命名/分层/裁定约定）在实际写用例与报告时读；`universal-prompt-intro.md`（0.7k）仅构建 dist 用 |
 | 领域 Provider | `references/providers/<domain>/`——本仓暂无。领域特有的测试口径（如某类金额的精度约定）应放这里，不进正文 |
 | 上下文预算 | 常驻 10² / 正文 10³ / 全量 10³ 字符量级 |
 
